@@ -1,0 +1,8 @@
+db_data
+db.bat
+
+node_modules
+
+*.env
+
+*.code-workspace
