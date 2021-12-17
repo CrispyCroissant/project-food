@@ -6,7 +6,7 @@ require("./db/db");
 
 const authRouter = require("./routes/auth");
 
-app.use(express());
+app.use(express.json());
 app.use(cors());
 
 app.use("/api", authRouter);
