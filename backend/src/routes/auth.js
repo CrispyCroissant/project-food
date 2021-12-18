@@ -14,7 +14,11 @@ router.post("/register", async (req, res) => {
         return res.status(400).send({ error: "Password is required!" });
     }
 
-    const user = new User({ email, password, emailConfirmed: false });
+    const user = new User({
+        email,
+        password: await User.hashPassword(password),
+        emailConfirmed: false,
+    });
 
     try {
         await user.save();
@@ -28,14 +32,30 @@ router.post("/register", async (req, res) => {
             id: user._id,
         });
     } catch (error) {
-        res.status(500).send({ error: error.message });
+        return res.status(500).send({ error: error.message });
     }
 
     res.send({ status: 200 });
 });
 
 router.post("/login", async (req, res) => {
-    res.send();
+    const { email, password } = req.body;
+
+    if (!email) {
+        return res.status(400).send({ error: "Email is required!" });
+    }
+
+    if (!password) {
+        return res.status(400).send({ error: "Password is required!" });
+    }
+
+    try {
+        const user = await User.findOne({ email });
+    } catch (error) {
+        return res.status(400).send({ error: error.message });
+    }
+
+    res.send({ status: 200 });
 });
 
 router.post("/confirm/:id", async (req, res) => {
