@@ -51,6 +51,10 @@ router.post("/login", async (req, res) => {
 
     try {
         const user = await User.findOne({ email });
+
+        if (!(await user.verifyPassword(password))) {
+            return res.status(401).send({ error: "Password is invalid!" });
+        }
     } catch (error) {
         return res.status(400).send({ error: error.message });
     }

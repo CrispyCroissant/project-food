@@ -74,6 +74,17 @@ describe("POST /api/login", () => {
     it("should exist", async () => {
         const res = await request(app).post(route);
 
+    it("should return status 401 if password is invalid", async () => {
+        const returnedUser = {
+            email: "email@email.com",
+            password: await User.hashPassword("password123"),
+        };
+
+        const creds = {
+            email: "email@email.com",
+            password: "123",
+        };
+
         expect(res).toBeDefined();
         expect(res.status).toBe(200);
     });
