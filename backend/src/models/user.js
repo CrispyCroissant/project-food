@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const argon2 = require("argon2");
 
 const userSchema = new mongoose.Schema({
     email: {
@@ -27,6 +28,14 @@ const userSchema = new mongoose.Schema({
         required: [true, "Email Confirmation status must be set!"],
     },
 });
+
+userSchema.statics.hashPassword = async function (password) {
+    try {
+        return await argon2.hash(password);
+    } catch (error) {
+        throw error;
+    }
+};
 
 const user = mongoose.model("User", userSchema);
 

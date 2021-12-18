@@ -94,6 +94,24 @@ describe("The user model", () => {
         try {
             const result = await sample.save();
             expect(result).toBeDefined();
-        } catch (error) {}
+        } catch (error) {
+            expect(error).toBe(2);
+        }
+    });
+
+    describe("The hashing method", () => {
+        it("should hash the given password", async () => {
+            const password = "haha123";
+
+            expect.assertions(2);
+            try {
+                const hashedPass = await User.hashPassword(password);
+
+                expect(hashedPass).not.toBe(password);
+                expect(hashedPass).toContain("$argon2i");
+            } catch (error) {
+                expect(error).not.toBeDefined();
+            }
+        });
     });
 });
