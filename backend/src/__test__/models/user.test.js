@@ -114,4 +114,34 @@ describe("The user model", () => {
             }
         });
     });
+
+    describe("The password verification method", () => {
+        it("should return true if the password is correct", async () => {
+            const sample = new User({
+                email: "radDude@email.com",
+                password: await User.hashPassword("password123"),
+                emailConfirmed: false,
+            });
+
+            expect.assertions(1);
+            try {
+                const result = await sample.verifyPassword("password123");
+                expect(result).toBe(true);
+            } catch (error) {}
+        });
+
+        it("should return false if the password is INCORRECT", async () => {
+            const sample = new User({
+                email: "radDude@email.com",
+                password: await User.hashPassword("password123"),
+                emailConfirmed: false,
+            });
+
+            expect.assertions(1);
+            try {
+                const result = await sample.verifyPassword("password1234");
+                expect(result).toBe(false);
+            } catch (error) {}
+        });
+    });
 });

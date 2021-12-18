@@ -37,6 +37,14 @@ userSchema.statics.hashPassword = async function (password) {
     }
 };
 
+userSchema.methods.verifyPassword = async function (password) {
+    try {
+        return await argon2.verify(this.password, password);
+    } catch (error) {
+        throw error;
+    }
+};
+
 const user = mongoose.model("User", userSchema);
 
 module.exports = user;
