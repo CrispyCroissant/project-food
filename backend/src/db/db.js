@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const mongoDB = "mongodb://127.0.0.1/placeholder_db";
+const mongoDB = process.env.DB_URL;
 
 if (process.env.NODE_ENV !== "test") {
     const db = mongoose.connection;
