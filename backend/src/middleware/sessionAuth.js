@@ -16,11 +16,11 @@ async function sessionAuth(req, res, next) {
                     .status(401)
                     .send({ error: "User must confirm their email." });
             }
-            
-            session.user = user;
         } catch (error) {
             return res.status(401).send({ error: error.message });
         }
+    } else {
+        return res.status(401).send({ error: "User unauthorized" });
     }
 
     next();
