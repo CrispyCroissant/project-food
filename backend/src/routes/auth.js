@@ -75,7 +75,17 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/confirm/:id", async (req, res) => {
-    res.send();
+    const id = req.params.id;
+
+    try {
+        const user = await User.findById(id);
+        user.emailConfirmed = true;
+        await user.save();
+    } catch (error) {
+        return res.status(404).send({ error: error.message });
+    }
+
+    res.send({ status: 200 });
 });
 
 module.exports = router;

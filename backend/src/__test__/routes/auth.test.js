@@ -3,6 +3,11 @@ const mockingoose = require("mockingoose");
 const app = require("../../app");
 const User = require("../../models/user");
 
+afterEach(() => {
+    jest.clearAllMocks();
+    mockingoose.resetAll();
+});
+
 describe("POST /api/register", () => {
     const route = "/api/register";
 
@@ -129,6 +134,33 @@ describe("POST /api/confirm/:id", () => {
         const res = await request(app).post(route);
 
         expect(res).toBeDefined();
+    });
+
+    it("should update the users confirmation status if found", async () => {
+        const newUser = {
+            _id: "1",
+            email: "test@email.com",
+            password: "blahblah",
+            emailConfirmed: false,
+        };
+
+        mockingoose(User).toReturn(newUser, "findOne");
+
+        const spy = jest
+            .spyOn(User.prototype, "save")
+            .mockImplementationOnce(() => Promise.resolve());
+
+        const res = await request(app).post(route);
+
+        expect(res).toBeDefined();
         expect(res.status).toBe(200);
+        expect(spy).toHaveBeenCalledTimes(1);
+    });
+
+    it("should return status 404 if ID not found", async () => {
+        const res = await request(app).post(route);
+
+        expect(res).toBeDefined();
+        expect(res.status).toBe(404);
     });
 });
