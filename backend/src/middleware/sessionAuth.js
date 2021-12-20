@@ -10,6 +10,7 @@ async function sessionAuth(req, res, next) {
             if (!user) {
                 return res.status(401).send({ error: "User unauthorized" });
             }
+
             if (!user.emailConfirmed) {
                 return res
                     .status(401)
@@ -18,6 +19,8 @@ async function sessionAuth(req, res, next) {
         } catch (error) {
             return res.status(401).send({ error: error.message });
         }
+    } else {
+        return res.status(401).send({ error: "User unauthorized" });
     }
 
     next();

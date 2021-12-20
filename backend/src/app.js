@@ -7,6 +7,7 @@ const app = express();
 require("./db/db");
 
 const authRouter = require("./routes/auth");
+const recipeRouter = require("./routes/recipe");
 
 app.use(express.json());
 app.use(cors());
@@ -31,5 +32,6 @@ if (process.env.NODE_ENV === "production") {
 app.use(session(sess));
 
 app.use("/api", authRouter);
+app.use("/api", recipeRouter);
 
 module.exports = app;
