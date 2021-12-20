@@ -1,6 +1,7 @@
 const request = require("supertest");
 const mockingoose = require("mockingoose");
 const app = require("../../app");
+const User = require("../../models/user");
 
 describe("POST /api/register", () => {
     const route = "/api/register";
@@ -14,7 +15,6 @@ describe("POST /api/register", () => {
         const res = await request(app).post(route).send(creds);
 
         expect(res).toBeDefined();
-        expect(res.status).toBe(200);
     });
 
     it("should return error if email is not given", async () => {
@@ -74,6 +74,33 @@ describe("POST /api/login", () => {
     it("should exist", async () => {
         const res = await request(app).post(route);
 
+        expect(res).toBeDefined();
+    });
+
+    it("should return status 400 if email is missing", async () => {
+        const creds = {
+            password: "password123",
+        };
+
+        const res = await request(app).post(route).send(creds);
+
+        expect(res).toBeDefined();
+        expect(res.status).toBe(400);
+        expect(res.body.error).toBe("Email is required!");
+    });
+
+    it("should return status 400 if password is missing", async () => {
+        const creds = {
+            email: "email@email.com",
+        };
+
+        const res = await request(app).post(route).send(creds);
+
+        expect(res).toBeDefined();
+        expect(res.status).toBe(400);
+        expect(res.body.error).toBe("Password is required!");
+    });
+
     it("should return status 401 if password is invalid", async () => {
         const returnedUser = {
             email: "email@email.com",
@@ -85,8 +112,13 @@ describe("POST /api/login", () => {
             password: "123",
         };
 
+        mockingoose(User).toReturn(returnedUser, "findOne");
+
+        const res = await request(app).post(route).send(creds);
+
         expect(res).toBeDefined();
-        expect(res.status).toBe(200);
+        expect(res.status).toBe(401);
+        expect(res.body.error).toBe("Password is invalid!");
     });
 });
 
