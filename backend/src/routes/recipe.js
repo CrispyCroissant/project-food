@@ -39,7 +39,7 @@ router.get("/recipes", sessionAuth, async (req, res) => {
     }
 });
 
-router.patch("/recipe", async (req, res) => {
+router.patch("/recipe", sessionAuth, async (req, res) => {
     const { oldRecipe, newRecipe } = req.body;
     const { id } = req.session;
 
