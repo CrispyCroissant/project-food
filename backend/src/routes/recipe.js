@@ -39,8 +39,39 @@ router.get("/recipes", sessionAuth, async (req, res) => {
     }
 });
 
-router.patch("/recipe", (req, res) => {
-    res.send();
+router.patch("/recipe", async (req, res) => {
+    const { oldRecipe, newRecipe } = req.body;
+    const { id } = req.session;
+
+    if (!oldRecipe) {
+        return res.status(400).send({ error: "oldRecipe is required!" });
+    }
+
+    if (!newRecipe) {
+        return res.status(400).send({ error: "newRecipe is required!" });
+    }
+
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).send({ error: "User was not found" });
+        }
+
+        const recipeIndex = user.recipes.indexOf(oldRecipe);
+
+        if (recipeIndex === -1) {
+            return res.status(404).send({ error: "Recipe was not found" });
+        }
+
+        user.recipes[recipeIndex] = newRecipe;
+
+        await user.save();
+
+        res.send({ oldRecipe, newRecipe });
+    } catch (error) {
+        return res.status(400).send({ error: error.message });
+    }
 });
 
 router.delete("/recipe", (req, res) => {

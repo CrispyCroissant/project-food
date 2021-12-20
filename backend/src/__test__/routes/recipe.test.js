@@ -102,7 +102,59 @@ describe("PATCH /api/recipe", () => {
     it("should exist", async () => {
         const res = await request(app).patch(route);
 
+        expect(res.status).toBe(400);
+    });
+
+    it("should return 400 if oldRecipe is not provided", async () => {
+        const res = await request(app).patch(route);
+
+        expect(res.status).toBe(400);
+        expect(res.body.error).toBe("oldRecipe is required!");
+    });
+
+    it("should exist", async () => {
+        const res = await request(app).patch(route).send({ oldRecipe: "y" });
+
+        expect(res.status).toBe(400);
+        expect(res.body.error).toBe("newRecipe is required!");
+    });
+
+    it("should return 404 if requested recipe does not exist", async () => {
+        const user = {
+            email: "test@email.com",
+            password: "blahblah",
+            emailConfirmed: true,
+            recipes: ["Test1", "Test2"],
+        };
+
+        mockingoose(User).toReturn(user, "findOne");
+
+        const res = await request(app)
+            .patch(route)
+            .send({ oldRecipe: "nonExistent", newRecipe: "changed" });
+
+        expect(res.status).toBe(404);
+        expect(res.body.error).toBe("Recipe was not found");
+    });
+
+    it("should return the recipes if everything went OK", async () => {
+        const user = {
+            email: "test@email.com",
+            password: "blahblah",
+            emailConfirmed: true,
+            recipes: ["Test1", "Test2"],
+        };
+
+        mockingoose(User).toReturn(user, "findOne");
+
+        const res = await request(app)
+            .patch(route)
+            .send({ oldRecipe: "Test2", newRecipe: "changed" });
+
         expect(res.status).toBe(200);
+        expect(res.body.error).not.toBeDefined();
+        expect(res.body.oldRecipe).toBe("Test2");
+        expect(res.body.newRecipe).toBe("changed");
     });
 });
 
