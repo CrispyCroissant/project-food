@@ -24,10 +24,10 @@ router.post("/recipe", sessionAuth, async (req, res) => {
 });
 
 router.get("/recipes", sessionAuth, async (req, res) => {
-    const { id } = req.session;
+    const { userID } = req.session;
 
     try {
-        const user = await User.findById(id);
+        const user = await User.findById(userID);
 
         if (user.recipes.length > 0) {
             res.send({ recipes: user.recipes });
@@ -41,7 +41,7 @@ router.get("/recipes", sessionAuth, async (req, res) => {
 
 router.patch("/recipe", sessionAuth, async (req, res) => {
     const { oldRecipe, newRecipe } = req.body;
-    const { id } = req.session;
+    const { userID } = req.session;
 
     if (!oldRecipe) {
         return res.status(400).send({ error: "oldRecipe is required!" });
@@ -52,7 +52,7 @@ router.patch("/recipe", sessionAuth, async (req, res) => {
     }
 
     try {
-        const user = await User.findById(id);
+        const user = await User.findById(userID);
 
         if (!user) {
             return res.status(404).send({ error: "User was not found" });
@@ -76,10 +76,10 @@ router.patch("/recipe", sessionAuth, async (req, res) => {
 
 router.delete("/recipe/:recipe", sessionAuth, async (req, res) => {
     const { recipe } = req.params;
-    const { id } = req.session;
+    const { userID } = req.session;
 
     try {
-        const user = await User.findById(id);
+        const user = await User.findById(userID);
 
         if (!user) {
             return res.status(404).send({ error: "User was not found" });
