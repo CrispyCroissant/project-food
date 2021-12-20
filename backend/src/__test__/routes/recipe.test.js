@@ -164,6 +164,47 @@ describe("DELETE /api/recipe", () => {
     it("should exist", async () => {
         const res = await request(app).delete(route);
 
+        expect(res.status).toBe(404);
+    });
+
+    it("should return 404 if user not found", async () => {
+        mockingoose(User).toReturn(null, "findOne");
+
+        const res = await request(app).delete(route + "/nope");
+
+        expect(res.status).toBe(404);
+        expect(res.body.error).toBe("User was not found");
+    });
+
+    it("should return 404 if requested recipe does not exist", async () => {
+        const user = {
+            email: "test@email.com",
+            password: "blahblah",
+            emailConfirmed: true,
+            recipes: ["Test1", "Test2"],
+        };
+
+        mockingoose(User).toReturn(user, "findOne");
+
+        const res = await request(app).delete(route + "/nope");
+
+        expect(res.status).toBe(404);
+        expect(res.body.error).toBe("Recipe was not found");
+    });
+
+    it("should return the deleted recipe if everything went OK", async () => {
+        const user = {
+            email: "test@email.com",
+            password: "blahblah",
+            emailConfirmed: true,
+            recipes: ["Test1", "Test2"],
+        };
+
+        mockingoose(User).toReturn(user, "findOne");
+
+        const res = await request(app).delete(route + "/Test2");
+
         expect(res.status).toBe(200);
+        expect(res.body.deletedRecipe).toEqual(["Test2"]);
     });
 });

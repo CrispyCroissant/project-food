@@ -74,8 +74,31 @@ router.patch("/recipe", sessionAuth, async (req, res) => {
     }
 });
 
-router.delete("/recipe", (req, res) => {
-    res.send();
+router.delete("/recipe/:recipe", sessionAuth, async (req, res) => {
+    const { recipe } = req.params;
+    const { id } = req.session;
+
+    try {
+        const user = await User.findById(id);
+
+        if (!user) {
+            return res.status(404).send({ error: "User was not found" });
+        }
+
+        const recipeIndex = user.recipes.indexOf(recipe);
+
+        if (recipeIndex === -1) {
+            return res.status(404).send({ error: "Recipe was not found" });
+        }
+
+        const deletedRecipe = user.recipes.splice(recipeIndex, 1);
+
+        await user.save();
+
+        res.send({ deletedRecipe });
+    } catch (error) {
+        return res.status(400).send({ error: error.message });
+    }
 });
 
 module.exports = router;
