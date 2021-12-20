@@ -23,8 +23,20 @@ router.post("/recipe", sessionAuth, async (req, res) => {
     }
 });
 
-router.get("/recipes", (req, res) => {
-    res.send();
+router.get("/recipes", sessionAuth, async (req, res) => {
+    const { id } = req.session;
+
+    try {
+        const user = await User.findById(id);
+
+        if (user.recipes.length > 0) {
+            res.send({ recipes: user.recipes });
+        } else {
+            return res.status(404).send({ error: "Couldn't find any recipes" });
+        }
+    } catch (error) {
+        return res.status(400).send({ error: error.message });
+    }
 });
 
 router.patch("/recipe", (req, res) => {
