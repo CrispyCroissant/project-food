@@ -40,6 +40,7 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
+    const { session } = req;
 
     if (!email) {
         return res.status(400).send({ error: "Email is required!" });
