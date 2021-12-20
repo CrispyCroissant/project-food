@@ -40,6 +40,16 @@ router.post("/register", async (req, res) => {
 
 router.post("/login", async (req, res) => {
     const { email, password } = req.body;
+    const { session } = req;
+
+    if (session.userID) {
+        try {
+            const user = await User.findById(session.userID);
+            return res.send({ status: 200, sessionLogin: true }) ? user : false;
+        } catch (error) {
+            return res.status(400).send({ error: error.message });
+        }
+    }
 
     if (!email) {
         return res.status(400).send({ error: "Email is required!" });
@@ -55,11 +65,13 @@ router.post("/login", async (req, res) => {
         if (!(await user.verifyPassword(password))) {
             return res.status(401).send({ error: "Password is invalid!" });
         }
+
+        session.userID = user._id;
     } catch (error) {
         return res.status(400).send({ error: error.message });
     }
 
-    res.send({ status: 200 });
+    res.send({ status: 200, sessionLogin: false });
 });
 
 router.post("/confirm/:id", async (req, res) => {
