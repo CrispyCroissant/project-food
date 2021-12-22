@@ -1,7 +1,7 @@
 <template>
   <v-container fluid class="d-flex flex-column">
     <v-row id="form-row" class="flex-grow-1" justify="center" align="center">
-      <v-col cols="6">
+      <v-col cols="10" md="6">
         <h1 class="text-h2 text-md-h1 text-center mb-15">Project Food</h1>
         <v-form ref="form" @keydown.enter="validate">
           <v-alert v-if="error" type="error" text>{{ error }}</v-alert>
