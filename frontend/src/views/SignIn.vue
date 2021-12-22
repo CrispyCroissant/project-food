@@ -11,6 +11,7 @@
             prepend-icon="mdi-email"
             v-model="email"
             :rules="rules.required"
+            ref="emailInput"
           ></v-text-field>
           <v-text-field
             type="password"
@@ -18,10 +19,18 @@
             prepend-icon="mdi-key"
             v-model="password"
             :rules="rules.required"
+            ref="passwordInput"
           ></v-text-field>
           <div class="d-flex justify-space-around my-6">
             <v-btn text>Register here</v-btn>
-            <v-btn ref="loginBtn" color="primary" @click="validate">
+            <v-btn
+              ref="loginBtn"
+              color="primary"
+              @click="
+                validate();
+                login();
+              "
+            >
               Sign in
             </v-btn>
           </div>
@@ -32,10 +41,13 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "SignIn",
   data() {
     return {
+      isLoggedIn: false,
       error: "",
       email: "",
       password: "",
@@ -47,6 +59,28 @@ export default {
   methods: {
     validate() {
       this.$refs.form.validate();
+    },
+    // TODO: This has to be moved to a Vuex store.
+    async login() {
+      try {
+        const response = await axios.post(
+          `${process.env.VUE_APP_BACKEND_URL}/login`,
+          {
+            email: this.email,
+            password: this.password,
+          }
+        );
+
+        const { status, data } = response;
+
+        if (status === 200) {
+          this.isLoggedIn = true;
+        } else {
+          this.error = data.error;
+        }
+      } catch (error) {
+        this.error = "Something went wrong!";
+      }
     },
   },
 };

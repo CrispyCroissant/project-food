@@ -1,6 +1,7 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import SignIn from "@/views/SignIn.vue";
 import Vuetify from "vuetify";
+import axios from "axios";
 
 describe("The sign in page", () => {
   const localVue = createLocalVue();
@@ -71,5 +72,26 @@ describe("The sign in page", () => {
     await wrapper.findComponent({ ref: "loginBtn" }).trigger("click");
 
     expect(spy).toBeCalledTimes(1);
+  });
+
+  // TODO: Change this test to use Vuex after a store has been implemented.
+  it("sets user login status after successful login", async () => {
+    wrapper = mount(SignIn, {
+      localVue,
+      vuetify,
+    });
+
+    await wrapper.setData({ email: "test@email.com" });
+    await wrapper.setData({ password: "password123" });
+
+    const spy = jest
+      .spyOn(axios, "post")
+      .mockResolvedValueOnce({ status: 200 });
+
+    await wrapper.findComponent({ ref: "loginBtn" }).trigger("click");
+    await wrapper.vm.$nextTick();
+
+    expect(spy).toBeCalledTimes(1);
+    expect(wrapper.vm.isLoggedIn).toBe(true);
   });
 });
