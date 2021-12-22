@@ -1,6 +1,10 @@
 <template>
   <v-form ref="form" @keydown.enter="validate">
-    <v-alert v-if="error" type="error" text>{{ error }}</v-alert>
+    <v-expand-transition>
+      <div v-if="error">
+        <v-alert type="error" text>{{ error }}</v-alert>
+      </div>
+    </v-expand-transition>
     <v-text-field
       autofocus
       label="Email"
