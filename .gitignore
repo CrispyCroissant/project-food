@@ -1,5 +1,6 @@
 db_data
 db.bat
+db.sh
 
 node_modules
 
