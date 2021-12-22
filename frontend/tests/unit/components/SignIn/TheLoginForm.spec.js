@@ -1,9 +1,9 @@
 import { createLocalVue, mount } from "@vue/test-utils";
-import SignIn from "@/views/SignIn.vue";
+import TheLoginForm from "@/components/SignIn/TheLoginForm.vue";
 import Vuetify from "vuetify";
 import axios from "axios";
 
-describe("The sign in page", () => {
+describe("The login form", () => {
   const localVue = createLocalVue();
   let vuetify;
   let wrapper;
@@ -17,7 +17,7 @@ describe("The sign in page", () => {
   });
 
   it("should NOT show an error alert if there's no error", () => {
-    wrapper = mount(SignIn, {
+    wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
     });
@@ -27,7 +27,7 @@ describe("The sign in page", () => {
   });
 
   it("should show an error alert if there's an error", async () => {
-    wrapper = mount(SignIn, {
+    wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
     });
@@ -42,7 +42,7 @@ describe("The sign in page", () => {
   });
 
   it("should mark an input field as required if empty", async () => {
-    wrapper = mount(SignIn, {
+    wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
     });
@@ -52,7 +52,7 @@ describe("The sign in page", () => {
   });
 
   it("should NOT mark an input field as required if filled", async () => {
-    wrapper = mount(SignIn, {
+    wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
     });
@@ -62,7 +62,7 @@ describe("The sign in page", () => {
   });
 
   it("validates the login form on sign in", async () => {
-    wrapper = mount(SignIn, {
+    wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
     });
@@ -76,7 +76,7 @@ describe("The sign in page", () => {
 
   // TODO: Change this test to use Vuex after a store has been implemented.
   it("sets user login status after successful login", async () => {
-    wrapper = mount(SignIn, {
+    wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
     });
