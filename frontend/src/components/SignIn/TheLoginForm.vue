@@ -17,6 +17,14 @@
       :rules="rules.required"
       ref="passwordInput"
     ></v-text-field>
+    <v-expand-transition>
+      <div class="d-flex justify-center my-5" v-if="loading">
+        <v-progress-circular
+          color="primary"
+          indeterminate
+        ></v-progress-circular>
+      </div>
+    </v-expand-transition>
     <div class="d-flex justify-space-around my-6">
       <v-btn text>Register here</v-btn>
       <v-btn
@@ -41,6 +49,7 @@ export default {
   data() {
     return {
       isLoggedIn: false,
+      loading: false,
       error: "",
       email: "",
       password: "",
@@ -56,6 +65,7 @@ export default {
     // TODO: This has to be moved to a Vuex store.
     async login() {
       try {
+        this.loading = true;
         const response = await axios.post(
           `${process.env.VUE_APP_BACKEND_URL}/login`,
           {
@@ -63,6 +73,7 @@ export default {
             password: this.password,
           }
         );
+        this.loading = false;
 
         const { status, data } = response;
 
@@ -73,6 +84,7 @@ export default {
         }
       } catch (error) {
         this.error = "Something went wrong!";
+        this.loading = false;
       }
     },
   },

@@ -94,4 +94,17 @@ describe("The login form", () => {
     expect(spy).toBeCalledTimes(1);
     expect(wrapper.vm.isLoggedIn).toBe(true);
   });
+
+  it("starts loading on login attempt", async () => {
+    wrapper = mount(TheLoginForm, {
+      localVue,
+      vuetify,
+    });
+
+    expect(wrapper.vm.loading).toBe(false);
+
+    await wrapper.findComponent({ ref: "loginBtn" }).trigger("click");
+
+    expect(wrapper.vm.loading).toBe(true);
+  });
 });
