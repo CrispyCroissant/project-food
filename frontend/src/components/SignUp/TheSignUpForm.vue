@@ -8,18 +8,20 @@
     <v-text-field
       autofocus
       label="Email"
-      prepend-icon="mdi-email"
+      prepend-inner-icon="mdi-email"
       v-model="email"
       :rules="emailRules"
       ref="emailInput"
+      outlined
     ></v-text-field>
     <v-text-field
       type="password"
       label="Password"
-      prepend-icon="mdi-key"
+      prepend-inner-icon="mdi-key"
       v-model="password"
       :rules="passwordRules"
       ref="passwordInput"
+      outlined
     ></v-text-field>
     <v-expand-transition>
       <div class="d-flex justify-center my-5" v-if="loading">
@@ -31,7 +33,7 @@
       </div>
     </v-expand-transition>
     <div class="d-flex justify-space-around my-6">
-      <v-btn text>Sign in</v-btn>
+      <v-btn text @click="routeSignIn">Sign in</v-btn>
       <v-btn
         ref="signUpBtn"
         color="primary"
