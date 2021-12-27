@@ -5,7 +5,7 @@ import SignUp from "../views/SignUp.vue";
 
 Vue.use(VueRouter);
 
-const routes = [
+export const routes = [
   {
     path: "/",
     name: "SignIn",

@@ -3,6 +3,7 @@ import TheSignUpForm from "@/components/SignUp/TheSignUpForm.vue";
 import Vuetify from "vuetify";
 import axios from "axios";
 import VueRouter from "vue-router";
+import { routes } from "../../../../src/router";
 
 jest.mock("axios");
 
@@ -15,7 +16,7 @@ describe("The sign up form", () => {
 
   beforeEach(() => {
     vuetify = new Vuetify();
-    router = new VueRouter();
+    router = new VueRouter({ routes });
   });
 
   afterEach(() => {
