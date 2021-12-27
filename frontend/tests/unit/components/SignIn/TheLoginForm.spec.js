@@ -2,14 +2,18 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import TheLoginForm from "@/components/SignIn/TheLoginForm.vue";
 import Vuetify from "vuetify";
 import axios from "axios";
+import VueRouter from "vue-router";
 
 describe("The login form", () => {
   const localVue = createLocalVue();
+  localVue.use(VueRouter);
   let vuetify;
   let wrapper;
+  let router;
 
   beforeEach(() => {
     vuetify = new Vuetify();
+    router = new VueRouter();
   });
 
   afterEach(() => {
@@ -106,5 +110,21 @@ describe("The login form", () => {
     await wrapper.findComponent({ ref: "loginBtn" }).trigger("click");
 
     expect(wrapper.vm.loading).toBe(true);
+  });
+
+  it("redirects to sign up page on click", async () => {
+    wrapper = mount(TheLoginForm, {
+      localVue,
+      vuetify,
+      router,
+    });
+
+    const spy = jest
+      .spyOn(wrapper.vm.$router, "push")
+      .mockResolvedValueOnce(true);
+
+    await wrapper.findComponent({ ref: "signUpBtn" }).trigger("click");
+
+    expect(spy).toBeCalledTimes(1);
   });
 });

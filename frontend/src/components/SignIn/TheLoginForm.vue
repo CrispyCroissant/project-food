@@ -30,7 +30,7 @@
       </div>
     </v-expand-transition>
     <div class="d-flex justify-space-around my-6">
-      <v-btn text>Register here</v-btn>
+      <v-btn text ref="signUpBtn" @click="routeSignUp">Register here</v-btn>
       <v-btn
         ref="loginBtn"
         color="primary"
@@ -65,6 +65,9 @@ export default {
   methods: {
     validate() {
       this.$refs.form.validate();
+    },
+    async routeSignUp() {
+      await this.$router.push({ name: "SignUp" });
     },
     // TODO: This has to be moved to a Vuex store.
     async login() {
