@@ -18,23 +18,18 @@ export const mutations = {
 };
 export const actions = {
   async attemptLogin({ commit }, { email, password }) {
-    try {
-      const response = await axios.post(
-        `${process.env.VUE_APP_BACKEND_URL}/login`,
-        {
-          email,
-          password,
-        }
-      );
-
-      if (response.status === 200) {
-        commit("logIn");
-      } else {
-        throw new Error(response.data.error);
+    const response = await axios.post(
+      `${process.env.VUE_APP_BACKEND_URL}/login`,
+      {
+        email,
+        password,
       }
-    } catch (error) {
-      // TODO: Add error to state
-      console.log("An error occurred");
+    );
+
+    if (response.status === 200) {
+      commit("logIn");
+    } else {
+      throw new Error(response.data.error);
     }
   },
 };

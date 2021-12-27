@@ -30,20 +30,69 @@ describe("The store", () => {
   });
 
   describe("The actions", () => {
-    it("has a method for authenticating on the backend", () => {
-      expect(actions.attemptLogin).toBeDefined();
-    });
+    describe("login method", () => {
+      afterEach(() => {
+        state.isLoggedIn = false;
+      });
 
-    it("sets the loggedIn status to true if the call is successful", async () => {
-      axios.post.mockImplementationOnce(() => Promise.resolve({ status: 200 }));
+      it("has a method for authenticating on the backend", () => {
+        expect(actions.attemptLogin).toBeDefined();
+      });
 
-      const context = {
-        commit: () => mutations.logIn(state),
-      };
+      it("sets the loggedIn status to true if the call is successful", async () => {
+        axios.post.mockImplementationOnce(() =>
+          Promise.resolve({ status: 200 })
+        );
 
-      await actions.attemptLogin(context, { email: "e", password: "p" });
+        const context = {
+          commit: () => mutations.logIn(state),
+        };
 
-      expect(state.isLoggedIn).toBe(true);
+        await actions.attemptLogin(context, { email: "e", password: "p" });
+
+        expect(state.isLoggedIn).toBe(true);
+      });
+
+      it("throws an error if the API call went bad", async () => {
+        axios.post.mockImplementationOnce(() =>
+          Promise.reject(new Error("Axios failed!"))
+        );
+
+        const context = {
+          commit: () => mutations.logIn(state),
+        };
+
+        expect.assertions(2);
+        try {
+          await actions.attemptLogin(context, { email: "e", password: "p" });
+        } catch (error) {
+          expect(error.message).toBe("Axios failed!");
+          expect(state.isLoggedIn).toBe(false);
+        }
+      });
+
+      it("throws an error if the authentication failed", async () => {
+        axios.post.mockImplementationOnce(() =>
+          Promise.resolve({
+            data: {
+              error: "An error message",
+            },
+            status: 401,
+          })
+        );
+
+        const context = {
+          commit: () => mutations.logIn(state),
+        };
+
+        expect.assertions(2);
+        try {
+          await actions.attemptLogin(context, { email: "e", password: "p" });
+        } catch (error) {
+          expect(error.message).toBe("An error message");
+          expect(state.isLoggedIn).toBe(false);
+        }
+      });
     });
   });
 });
