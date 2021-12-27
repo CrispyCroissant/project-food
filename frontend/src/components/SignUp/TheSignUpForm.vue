@@ -90,7 +90,7 @@ export default {
         const { status, data } = response;
 
         if (status === 200) {
-          await this.routeSignIn();
+          await this.routeSignIn({ confirmation: true });
         } else {
           throw new Error(data.error);
         }
@@ -99,8 +99,12 @@ export default {
         this.loading = false;
       }
     },
-    async routeSignIn() {
-      await this.$router.push({ name: "SignIn" });
+    async routeSignIn(params) {
+      try {
+        await this.$router.push({ name: "SignIn", params });
+      } catch (error) {
+        console.log(error);
+      }
     },
   },
 };

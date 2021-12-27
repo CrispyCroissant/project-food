@@ -10,6 +10,7 @@ export const routes = [
     path: "/",
     name: "SignIn",
     component: SignIn,
+    props: true,
   },
   {
     path: "/register",
