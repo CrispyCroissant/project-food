@@ -1,4 +1,7 @@
-import { state, mutations } from "../../../src/store";
+import axios from "axios";
+import { state, mutations, actions } from "../../../src/store";
+
+jest.mock("axios");
 
 describe("The store", () => {
   describe("The state", () => {
@@ -23,6 +26,24 @@ describe("The store", () => {
       mutations.logOut(state);
 
       expect(state.isLoggedIn).toBe(false);
+    });
+  });
+
+  describe("The actions", () => {
+    it("has a method for authenticating on the backend", () => {
+      expect(actions.attemptLogin).toBeDefined();
+    });
+
+    it("sets the loggedIn status to true if the call is successful", async () => {
+      axios.post.mockImplementationOnce(() => Promise.resolve({ status: 200 }));
+
+      const context = {
+        commit: () => mutations.logIn(state),
+      };
+
+      await actions.attemptLogin(context, { email: "e", password: "p" });
+
+      expect(state.isLoggedIn).toBe(true);
     });
   });
 });
