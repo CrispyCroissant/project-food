@@ -15,6 +15,9 @@ export const mutations = {
   logOut(state) {
     state.isLoggedIn = false;
   },
+  setRecipes(state, recipesList) {
+    state.recipes = recipesList;
+  },
 };
 export const actions = {
   async attemptLogin({ commit }, { email, password }) {
@@ -28,6 +31,17 @@ export const actions = {
 
     if (response.status === 200) {
       commit("logIn");
+    } else {
+      throw new Error(response.data.error);
+    }
+  },
+  async getRecipes({ commit }) {
+    const response = await axios.get(
+      `${process.env.VUE_APP_BACKEND_URL}/recipes`
+    );
+
+    if (response.status === 200) {
+      commit("setRecipes", response.data.recipes);
     } else {
       throw new Error(response.data.error);
     }
