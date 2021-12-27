@@ -3,6 +3,7 @@
     <v-row id="form-row" class="flex-grow-1" justify="center" align="center">
       <v-col cols="10" md="6">
         <h1 class="text-h2 text-md-h1 text-center mb-15">Project Food</h1>
+        <h3 class="text-h5 mb-6">Create an account</h3>
         <the-sign-up-form></the-sign-up-form>
       </v-col>
     </v-row>
