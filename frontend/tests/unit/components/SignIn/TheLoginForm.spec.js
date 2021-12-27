@@ -1,12 +1,13 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import TheLoginForm from "@/components/SignIn/TheLoginForm.vue";
 import Vuetify from "vuetify";
-import axios from "axios";
 import VueRouter from "vue-router";
+import Vuex from "vuex";
 
 describe("The login form", () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
+  localVue.use(Vuex);
   let vuetify;
   let wrapper;
   let router;
@@ -78,31 +79,33 @@ describe("The login form", () => {
     expect(spy).toBeCalledTimes(1);
   });
 
-  // TODO: Change this test to use Vuex after a store has been implemented.
   it("sets user login status after successful login", async () => {
+    const actions = {
+      attemptLogin: jest.fn(),
+    };
+
     wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
+      store: new Vuex.Store({
+        actions,
+      }),
     });
 
-    await wrapper.setData({ email: "test@email.com" });
-    await wrapper.setData({ password: "password123" });
-
-    const spy = jest
-      .spyOn(axios, "post")
-      .mockResolvedValueOnce({ status: 200 });
-
     await wrapper.findComponent({ ref: "loginBtn" }).trigger("click");
-    await wrapper.vm.$nextTick();
 
-    expect(spy).toBeCalledTimes(1);
-    expect(wrapper.vm.isLoggedIn).toBe(true);
+    expect(actions.attemptLogin).toBeCalledTimes(1);
   });
 
   it("starts loading on login attempt", async () => {
     wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
+      store: new Vuex.Store({
+        actions: {
+          attemptLogin: jest.fn(),
+        },
+      }),
     });
 
     expect(wrapper.vm.loading).toBe(false);

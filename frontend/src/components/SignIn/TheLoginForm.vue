@@ -46,13 +46,10 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "TheForm",
   data() {
     return {
-      isLoggedIn: false,
       loading: false,
       error: "",
       email: "",
@@ -69,28 +66,19 @@ export default {
     async routeSignUp() {
       await this.$router.push({ name: "SignUp" });
     },
-    // TODO: This has to be moved to a Vuex store.
     async login() {
       try {
+        this.error = "";
         this.loading = true;
-        const response = await axios.post(
-          `${process.env.VUE_APP_BACKEND_URL}/login`,
-          {
-            email: this.email,
-            password: this.password,
-          }
-        );
+
+        await this.$store.dispatch("attemptLogin", {
+          email: this.email,
+          password: this.password,
+        });
+
         this.loading = false;
-
-        const { status, data } = response;
-
-        if (status === 200) {
-          this.isLoggedIn = true;
-        } else {
-          this.error = data.error;
-        }
       } catch (error) {
-        this.error = "Something went wrong!";
+        this.error = error.message;
         this.loading = false;
       }
     },
