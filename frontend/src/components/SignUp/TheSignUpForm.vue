@@ -100,11 +100,7 @@ export default {
       }
     },
     async routeSignIn(params) {
-      try {
-        await this.$router.push({ name: "SignIn", params });
-      } catch (error) {
-        console.log(error);
-      }
+      await this.$router.push({ name: "SignIn", params });
     },
   },
 };
