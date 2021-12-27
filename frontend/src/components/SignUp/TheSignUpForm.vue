@@ -33,7 +33,7 @@
       </div>
     </v-expand-transition>
     <div class="d-flex justify-space-around my-6">
-      <v-btn text @click="routeSignIn">Sign in</v-btn>
+      <v-btn text @click="routeSignIn" ref="signInBtn">Sign in</v-btn>
       <v-btn
         ref="signUpBtn"
         color="primary"
@@ -89,15 +89,18 @@ export default {
 
         const { status, data } = response;
 
-        if (status !== 200) {
-          throw new Error(data.error);
+        if (status === 200) {
+          await this.routeSignIn();
         } else {
-          await this.$router.push({ name: "SignIn" });
+          throw new Error(data.error);
         }
       } catch (error) {
         this.error = error.message;
         this.loading = false;
       }
+    },
+    async routeSignIn() {
+      await this.$router.push({ name: "SignIn" });
     },
   },
 };

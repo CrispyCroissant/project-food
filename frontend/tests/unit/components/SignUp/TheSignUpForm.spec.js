@@ -155,12 +155,23 @@ describe("The sign up form", () => {
       router,
     });
     const spy = jest.spyOn(wrapper.vm.$router, "push");
-    await wrapper.vm.$forceUpdate();
 
     await wrapper.findComponent({ ref: "signUpBtn" }).trigger("click");
-    await wrapper.vm.$nextTick;
 
     expect(spy).toBeCalledTimes(1);
-    expect(wrapper.vm.$route.fullPath).toBe("/");
+  });
+
+  it("redirects the user to the login page on sign in button press", async () => {
+    wrapper = mount(TheSignUpForm, {
+      localVue,
+      vuetify,
+      router,
+    });
+
+    const spy = jest.spyOn(wrapper.vm.$router, "push").mockReturnValue(true);
+
+    await wrapper.findComponent({ ref: "signInBtn" }).trigger("click");
+
+    expect(spy).toBeCalledTimes(1);
   });
 });
