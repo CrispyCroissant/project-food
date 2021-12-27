@@ -30,7 +30,7 @@
       </div>
     </v-expand-transition>
     <div class="d-flex justify-space-around my-6">
-      <v-btn text>Register here</v-btn>
+      <v-btn text ref="signUpBtn" @click="routeSignUp">Register here</v-btn>
       <v-btn
         ref="loginBtn"
         color="primary"
@@ -46,13 +46,10 @@
 </template>
 
 <script>
-import axios from "axios";
-
 export default {
   name: "TheForm",
   data() {
     return {
-      isLoggedIn: false,
       loading: false,
       error: "",
       email: "",
@@ -66,28 +63,22 @@ export default {
     validate() {
       this.$refs.form.validate();
     },
-    // TODO: This has to be moved to a Vuex store.
+    async routeSignUp() {
+      await this.$router.push({ name: "SignUp" });
+    },
     async login() {
       try {
+        this.error = "";
         this.loading = true;
-        const response = await axios.post(
-          `${process.env.VUE_APP_BACKEND_URL}/login`,
-          {
-            email: this.email,
-            password: this.password,
-          }
-        );
+
+        await this.$store.dispatch("attemptLogin", {
+          email: this.email,
+          password: this.password,
+        });
+
         this.loading = false;
-
-        const { status, data } = response;
-
-        if (status === 200) {
-          this.isLoggedIn = true;
-        } else {
-          this.error = data.error;
-        }
       } catch (error) {
-        this.error = "Something went wrong!";
+        this.error = error.message;
         this.loading = false;
       }
     },
