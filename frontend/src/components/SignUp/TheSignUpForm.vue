@@ -89,6 +89,8 @@ export default {
 
         if (status !== 200) {
           throw new Error(data.error);
+        } else {
+          await this.$router.push({ name: "SignIn" });
         }
       } catch (error) {
         this.error = error.message;

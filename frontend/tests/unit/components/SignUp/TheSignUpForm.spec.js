@@ -2,16 +2,20 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import TheSignUpForm from "@/components/SignUp/TheSignUpForm.vue";
 import Vuetify from "vuetify";
 import axios from "axios";
+import VueRouter from "vue-router";
 
 jest.mock("axios");
 
 describe("The sign up form", () => {
   const localVue = createLocalVue();
+  localVue.use(VueRouter);
   let vuetify;
   let wrapper;
+  let router;
 
   beforeEach(() => {
     vuetify = new Vuetify();
+    router = new VueRouter();
   });
 
   afterEach(() => {
@@ -113,6 +117,7 @@ describe("The sign up form", () => {
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
+      router,
     });
     const spy = jest.spyOn(wrapper.vm, "signUp");
     await wrapper.vm.$forceUpdate();
@@ -139,5 +144,23 @@ describe("The sign up form", () => {
 
     expect(spy).toBeCalledTimes(1);
     expect(wrapper.vm.error).toBe("Error message");
+  });
+
+  it("redirects the user to the login page on successful sign up", async () => {
+    axios.post.mockImplementationOnce(() => Promise.resolve({ status: 200 }));
+
+    wrapper = mount(TheSignUpForm, {
+      localVue,
+      vuetify,
+      router,
+    });
+    const spy = jest.spyOn(wrapper.vm.$router, "push");
+    await wrapper.vm.$forceUpdate();
+
+    await wrapper.findComponent({ ref: "signUpBtn" }).trigger("click");
+    await wrapper.vm.$nextTick;
+
+    expect(spy).toBeCalledTimes(1);
+    expect(wrapper.vm.$route.fullPath).toBe("/");
   });
 });
