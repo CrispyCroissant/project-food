@@ -21,7 +21,13 @@
         <v-btn ref="addBtn" class="mx-3" color="primary" @click="addRecipe">
           Add
         </v-btn>
-        <v-btn small icon class="align-self-start" @click="dialog = false">
+        <v-btn
+          ref="closeBtn"
+          small
+          icon
+          class="align-self-start"
+          @click="dialog = false"
+        >
           <v-icon>mdi-close</v-icon>
         </v-btn>
       </v-card-actions>
