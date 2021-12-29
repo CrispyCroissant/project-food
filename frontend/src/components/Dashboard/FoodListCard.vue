@@ -48,6 +48,11 @@ export default {
       },
     },
   },
+  watch: {
+    "$store.state.recipes"() {
+      return this.$store.state.recipes;
+    },
+  },
   methods: {
     async deleteRecipe(recipe) {
       try {
