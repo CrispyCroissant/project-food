@@ -25,6 +25,48 @@ describe("The card", () => {
     expect(wrapper.exists()).toBe(true);
   });
 
+  it("should show an error alert if there's an error", () => {
+    wrapper = mount(FoodListCard, {
+      localVue,
+      vuetify,
+      store,
+      data() {
+        return {
+          error: "message",
+        };
+      },
+    });
+
+    expect(wrapper.findComponent({ ref: "errorAlert" }).exists()).toBe(true);
+  });
+
+  it("should NOT show an error alert if there's no error", () => {
+    wrapper = mount(FoodListCard, {
+      localVue,
+      vuetify,
+      store,
+    });
+
+    expect(wrapper.findComponent({ ref: "errorAlert" }).exists()).toBe(false);
+  });
+
+  it("should show the correct error message", () => {
+    const message = "message";
+
+    wrapper = mount(FoodListCard, {
+      localVue,
+      vuetify,
+      store,
+      data() {
+        return {
+          error: message,
+        };
+      },
+    });
+
+    expect(wrapper.findComponent({ ref: "errorAlert" }).text()).toBe(message);
+  });
+
   it("should NOT show the list if there's no recipes", () => {
     wrapper = mount(FoodListCard, { localVue, vuetify, store });
 

@@ -1,5 +1,12 @@
 <template>
   <v-card elevation="3" outlined shaped :loading="loading">
+    <v-expand-transition>
+      <div v-if="error">
+        <v-alert ref="errorAlert" type="error" class="mb-0" text>
+          {{ error }}
+        </v-alert>
+      </div>
+    </v-expand-transition>
     <v-card-title>Your foods</v-card-title>
     <v-card-text>
       <v-list v-if="recipes.length > 0" ref="cardList">
