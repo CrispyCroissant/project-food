@@ -35,8 +35,18 @@ export default {
   data() {
     return {
       error: "",
-      recipes: [],
     };
+  },
+  computed: {
+    recipes: {
+      get() {
+        return this.$store.state.recipes;
+      },
+      // * Had to create this to silence a stupid vue warning which is wrong.
+      set() {
+        return;
+      },
+    },
   },
   methods: {
     async deleteRecipe(recipe) {

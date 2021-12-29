@@ -8,9 +8,11 @@ describe("The card", () => {
   localVue.use(Vuex);
   let wrapper;
   let vuetify;
+  let store;
 
   beforeEach(() => {
     vuetify = new Vuetify();
+    store = { state: { recipes: [] } };
   });
 
   afterEach(() => {
@@ -18,13 +20,13 @@ describe("The card", () => {
   });
 
   it("should exist", () => {
-    wrapper = mount(FoodListCard, { localVue, vuetify });
+    wrapper = mount(FoodListCard, { localVue, vuetify, store });
 
     expect(wrapper.exists()).toBe(true);
   });
 
   it("should NOT show the list if there's no recipes", () => {
-    wrapper = mount(FoodListCard, { localVue, vuetify });
+    wrapper = mount(FoodListCard, { localVue, vuetify, store });
 
     const list = wrapper.findComponent({ ref: "cardList" });
 
@@ -32,7 +34,7 @@ describe("The card", () => {
   });
 
   it("should show a list of recipes if they exist", async () => {
-    wrapper = mount(FoodListCard, { localVue, vuetify });
+    wrapper = mount(FoodListCard, { localVue, vuetify, store });
 
     const exampleList = ["Recipe1", "Recipe2", "Recipe3"];
 
@@ -53,10 +55,8 @@ describe("The card", () => {
     wrapper = mount(FoodListCard, {
       localVue,
       vuetify,
-      store: new Vuex.Store({ actions }),
+      store: new Vuex.Store({ state: { recipes: ["one", "two"] }, actions }),
     });
-
-    await wrapper.setData({ recipes: ["One", 2, "Three"] });
 
     await wrapper.findComponent({ ref: "deleteBtn" }).trigger("click");
 
