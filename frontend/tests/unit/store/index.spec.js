@@ -43,6 +43,14 @@ describe("The store", () => {
 
       expect(state.recipes).toEqual(["One", "Three"]);
     });
+
+    it("has a mutation that adds a recipe to the list of recipes", () => {
+      state.recipes = ["One"];
+
+      mutations.addRecipe(state, "Two");
+
+      expect(state.recipes).toEqual(["One", "Two"]);
+    });
   });
 
   describe("The actions", () => {
@@ -163,6 +171,33 @@ describe("The store", () => {
         expect.assertions(1);
         try {
           await actions.deleteRecipe(context, mockRecipe);
+          expect(spy).toBeCalledTimes(1);
+        } catch (error) {
+          expect(error).not.toBeDefined();
+        }
+      });
+
+      it("should send an API call to add a recipe if called", async () => {
+        const mockRecipe = "recipe";
+
+        axios.post.mockImplementationOnce(() =>
+          Promise.resolve({
+            data: {
+              recipes: [mockRecipe],
+            },
+            status: 200,
+          })
+        );
+
+        const context = {
+          commit: () => mutations.addRecipe(state, mockRecipe),
+        };
+
+        const spy = jest.spyOn(mutations, "addRecipe");
+
+        expect.assertions(1);
+        try {
+          await actions.addRecipe(context, mockRecipe);
           expect(spy).toBeCalledTimes(1);
         } catch (error) {
           expect(error).not.toBeDefined();
