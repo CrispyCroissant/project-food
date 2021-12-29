@@ -26,7 +26,7 @@
           small
           icon
           class="align-self-start"
-          @click="dialog = false"
+          @click="closeDialog"
         >
           <v-icon>mdi-close</v-icon>
         </v-btn>
@@ -58,6 +58,10 @@ export default {
         this.error = error.message;
         this.loading = false;
       }
+    },
+    closeDialog() {
+      this.dialog = false;
+      this.error = false;
     },
   },
 };

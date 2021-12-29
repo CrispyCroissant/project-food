@@ -74,6 +74,23 @@ describe("The dialog", () => {
     expect(wrapper.vm.dialog).toBe(false);
   });
 
+  it("should remove any error upon dialog close", async () => {
+    wrapper = mount(FoodListCardDialog, {
+      localVue,
+      vuetify,
+      data() {
+        return {
+          dialog: true,
+          error: "Mock",
+        };
+      },
+    });
+
+    await wrapper.findComponent({ ref: "closeBtn" }).trigger("click");
+
+    expect(wrapper.vm.error).toBeFalsy();
+  });
+
   test("the add button should add a recipe", async () => {
     const actions = { addRecipe: jest.fn() };
 
