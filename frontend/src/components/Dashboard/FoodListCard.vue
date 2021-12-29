@@ -2,9 +2,16 @@
   <v-card elevation="3" outlined shaped>
     <v-card-title>Your foods</v-card-title>
     <v-card-text>
-      <v-list>
+      <v-list v-if="recipes.length > 0" ref="cardList">
         <v-list-item class="px-0">
-          <v-list-item-content class="mr-4">Test 1</v-list-item-content>
+          <v-list-item-content
+            ref="recipeList"
+            v-for="recipe in recipes"
+            :key="recipe"
+            class="mr-4"
+          >
+            {{ recipe }}
+          </v-list-item-content>
           <v-list-item-icon>
             <v-btn icon>
               <v-icon size="20px" color="red">mdi-delete</v-icon>
@@ -44,6 +51,7 @@ export default {
   data() {
     return {
       dialog: false,
+      recipes: [],
     };
   },
 };
