@@ -21,37 +21,20 @@
       </v-list>
     </v-card-text>
     <v-card-actions>
-      <v-dialog
-        v-model="dialog"
-        transition="dialog-top-transition"
-        max-width="700"
-      >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn icon v-bind="attrs" v-on="on">
-            <v-icon color="green">mdi-plus</v-icon>
-          </v-btn>
-        </template>
-        <v-card>
-          <v-card-actions>
-            <v-text-field label="Add food"></v-text-field>
-            <v-btn class="mx-3" color="primary">Add</v-btn>
-            <v-btn small icon class="align-self-start" @click="dialog = false">
-              <v-icon>mdi-close</v-icon>
-            </v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
+      <food-list-card-dialog></food-list-card-dialog>
     </v-card-actions>
   </v-card>
 </template>
 
 <script>
+import FoodListCardDialog from "@/components/Dashboard/FoodListCardDialog.vue";
+
 export default {
   name: "FoodListCard",
+  components: { FoodListCardDialog },
   data() {
     return {
       error: "",
-      dialog: false,
       recipes: [],
     };
   },
