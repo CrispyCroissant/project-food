@@ -18,6 +18,10 @@ export const mutations = {
   setRecipes(state, recipesList) {
     state.recipes = recipesList;
   },
+  removeRecipe(state, recipe) {
+    const index = state.recipes.findIndex((e) => e === recipe);
+    state.recipes.splice(index, 1);
+  },
 };
 export const actions = {
   async attemptLogin({ commit }, { email, password }) {
@@ -42,6 +46,17 @@ export const actions = {
 
     if (response.status === 200) {
       commit("setRecipes", response.data.recipes);
+    } else {
+      throw new Error(response.data.error);
+    }
+  },
+  async deleteRecipe({ commit }, recipe) {
+    const response = await axios.delete(
+      `${process.env.VUE_APP_BACKEND_URL}/recipe/${recipe}`
+    );
+
+    if (response.status === 200) {
+      commit("removeRecipe", recipe);
     } else {
       throw new Error(response.data.error);
     }
