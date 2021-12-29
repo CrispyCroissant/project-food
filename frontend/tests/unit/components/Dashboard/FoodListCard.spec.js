@@ -38,7 +38,7 @@ describe("The card", () => {
 
     await wrapper.setData({ recipes: exampleList });
 
-    const recipeElements = wrapper.findAll({ ref: "recipeList" });
+    const recipeElements = wrapper.findAllComponents({ ref: "recipeList" });
 
     for (let i = 0; i < recipeElements.length; i++) {
       const recipe = recipeElements.at(i).text();

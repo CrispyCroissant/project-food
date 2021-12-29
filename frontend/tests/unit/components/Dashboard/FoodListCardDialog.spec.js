@@ -8,6 +8,7 @@ describe("The card", () => {
   localVue.use(Vuex);
   let wrapper;
   let vuetify;
+  document.body.setAttribute("data-app", true); // Fixes some strange warning
 
   beforeEach(() => {
     vuetify = new Vuetify();
@@ -30,10 +31,12 @@ describe("The card", () => {
       localVue,
       vuetify,
       store: new Vuex.Store({ actions }),
+      data() {
+        return {
+          dialog: true,
+        };
+      },
     });
-
-    await wrapper.setData({ dialog: true });
-    await wrapper.setData({ recipes: ["One"] });
 
     await wrapper.findComponent({ ref: "addBtn" }).trigger("click");
 
