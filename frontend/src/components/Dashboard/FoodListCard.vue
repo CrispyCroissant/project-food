@@ -13,7 +13,7 @@
             {{ recipe }}
           </v-list-item-content>
           <v-list-item-icon>
-            <v-btn icon>
+            <v-btn icon ref="deleteBtn" @click="deleteRecipe">
               <v-icon size="20px" color="red">mdi-delete</v-icon>
             </v-btn>
           </v-list-item-icon>
@@ -50,9 +50,20 @@ export default {
   name: "FoodListCard",
   data() {
     return {
+      error: "",
       dialog: false,
       recipes: [],
     };
+  },
+  methods: {
+    async deleteRecipe() {
+      try {
+        this.error = false;
+        await this.$store.dispatch("deleteRecipe", this.$vnode.key);
+      } catch (error) {
+        this.error = error;
+      }
+    },
   },
 };
 </script>

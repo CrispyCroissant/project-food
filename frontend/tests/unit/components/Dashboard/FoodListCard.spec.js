@@ -1,9 +1,11 @@
 import { mount, createLocalVue } from "@vue/test-utils";
 import FoodListCard from "@/components/Dashboard/FoodListCard.vue";
 import Vuetify from "vuetify";
+import Vuex from "vuex";
 
 describe("The card", () => {
   const localVue = createLocalVue();
+  localVue.use(Vuex);
   let wrapper;
   let vuetify;
 
@@ -43,5 +45,21 @@ describe("The card", () => {
 
       expect(recipe).toBe(exampleList[i]);
     }
+  });
+
+  test("the delete button should delete the recipe", async () => {
+    const actions = { deleteRecipe: jest.fn() };
+
+    wrapper = mount(FoodListCard, {
+      localVue,
+      vuetify,
+      store: new Vuex.Store({ actions }),
+    });
+
+    await wrapper.setData({ recipes: ["One", 2, "Three"] });
+
+    await wrapper.findComponent({ ref: "deleteBtn" }).trigger("click");
+
+    expect(actions.deleteRecipe).toBeCalledTimes(1);
   });
 });
