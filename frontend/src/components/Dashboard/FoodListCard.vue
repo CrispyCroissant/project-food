@@ -3,13 +3,13 @@
     <v-card-title>Your foods</v-card-title>
     <v-card-text>
       <v-list v-if="recipes.length > 0" ref="cardList">
-        <v-list-item class="px-0">
-          <v-list-item-content
-            ref="recipeList"
-            v-for="recipe in recipes"
-            :key="recipe"
-            class="mr-4"
-          >
+        <v-list-item
+          class="px-0"
+          ref="recipeList"
+          v-for="recipe in recipes"
+          :key="recipe"
+        >
+          <v-list-item-content class="mr-4">
             {{ recipe }}
           </v-list-item-content>
           <v-list-item-icon>
