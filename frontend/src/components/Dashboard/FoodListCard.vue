@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="3" outlined shaped>
+  <v-card elevation="3" outlined shaped :loading="loading">
     <v-card-title>Your foods</v-card-title>
     <v-card-text>
       <v-list v-if="recipes.length > 0" ref="cardList">
@@ -35,6 +35,7 @@ export default {
   data() {
     return {
       error: "",
+      loading: false,
     };
   },
   computed: {
@@ -57,7 +58,9 @@ export default {
     async deleteRecipe(recipe) {
       try {
         this.error = false;
+        this.loading = true;
         await this.$store.dispatch("deleteRecipe", recipe);
+        this.loading = false;
       } catch (error) {
         this.error = error;
       }
