@@ -10,23 +10,28 @@ const authRouter = require("./routes/auth");
 const recipeRouter = require("./routes/recipe");
 
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+  })
+);
 
 const sess = {
-    cookie: {
-        httpOnly: true,
-        maxAge: 1000 * 60 * 60 * 24 * 30, // 1 month
-        sameSite: true,
-    },
-    name: "auth",
-    saveUninitialized: false,
-    secret: process.env.AUTH_SESS_SECRET,
-    resave: false,
+  cookie: {
+    httpOnly: true,
+    maxAge: 1000 * 60 * 60 * 24 * 30, // 1 month
+    sameSite: true,
+  },
+  name: "auth",
+  saveUninitialized: false,
+  secret: process.env.AUTH_SESS_SECRET,
+  resave: false,
 };
 
 if (process.env.NODE_ENV === "production") {
-    sess.cookie.secure = true;
-    sess.store = MongoStore.create({ mongoUrl: process.env.DB_URl });
+  sess.cookie.secure = true;
+  sess.store = MongoStore.create({ mongoUrl: process.env.DB_URl });
 }
 
 app.use(session(sess));
