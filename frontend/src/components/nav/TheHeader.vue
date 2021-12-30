@@ -5,6 +5,13 @@
     </v-toolbar-title>
     <v-spacer></v-spacer>
     <v-spacer></v-spacer>
+    <v-expand-transition>
+      <div v-if="error">
+        <v-alert ref="errorAlert" type="error" class="ma-0" text>
+          {{ error }}
+        </v-alert>
+      </div>
+    </v-expand-transition>
     <v-btn icon ref="logOutBtn" @click="logout">
       <v-icon color="primary">mdi-logout</v-icon>
     </v-btn>
@@ -14,13 +21,19 @@
 <script>
 export default {
   name: "TheHeader",
+  data() {
+    return {
+      error: "",
+    };
+  },
   methods: {
     async logout() {
       try {
+        this.error = false;
         await this.$store.dispatch("logOut");
-      await this.$router.push({ name: "SignIn" });
+        await this.$router.push({ name: "SignIn" });
       } catch (error) {
-        return;
+        this.error = error.message;
       }
     },
   },

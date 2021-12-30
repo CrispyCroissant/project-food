@@ -2,10 +2,12 @@ import { createLocalVue, mount } from "@vue/test-utils";
 import TheHeader from "@/components/nav/TheHeader.vue";
 import Vuetify from "vuetify";
 import VueRouter from "vue-router";
+import Vuex from "Vuex";
 
 describe("The header", () => {
   const localVue = createLocalVue();
   localVue.use(VueRouter);
+  localVue.use(Vuex);
   let vuetify;
   let wrapper;
   let router;
@@ -26,6 +28,29 @@ describe("The header", () => {
     });
 
     expect(wrapper.exists()).toBe(true);
+  });
+
+  it("should show error alert upon error", () => {
+    wrapper = mount(TheHeader, {
+      localVue,
+      vuetify,
+      data() {
+        return {
+          error: "message",
+        };
+      },
+    });
+
+    expect(wrapper.findComponent({ ref: "errorAlert" }).exists()).toBe(true);
+  });
+
+  it("should NOT show an error alert if there's no error", () => {
+    wrapper = mount(TheHeader, {
+      localVue,
+      vuetify,
+    });
+
+    expect(wrapper.findComponent({ ref: "errorAlert" }).exists()).toBe(false);
   });
 
   it("reroutes on successful logout", async () => {
