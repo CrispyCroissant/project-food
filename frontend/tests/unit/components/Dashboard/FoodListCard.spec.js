@@ -12,7 +12,10 @@ describe("The card", () => {
 
   beforeEach(() => {
     vuetify = new Vuetify();
-    store = new Vuex.Store({ state: { recipes: [] } });
+    store = new Vuex.Store({
+      state: { recipes: [] },
+      actions: { getRecipes: jest.fn() },
+    });
   });
 
   afterEach(() => {
@@ -109,7 +112,7 @@ describe("The card", () => {
   });
 
   test("the delete button should delete the recipe", async () => {
-    const actions = { deleteRecipe: jest.fn() };
+    const actions = { deleteRecipe: jest.fn(), getRecipes: jest.fn() };
 
     wrapper = mount(FoodListCard, {
       localVue,
