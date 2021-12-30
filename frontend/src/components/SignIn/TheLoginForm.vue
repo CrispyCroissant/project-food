@@ -77,6 +77,8 @@ export default {
         });
 
         this.loading = false;
+
+        await this.$router.push({ name: "Dashboard" });
       } catch (error) {
         this.error = error.message;
         this.loading = false;
