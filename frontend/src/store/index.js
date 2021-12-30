@@ -42,6 +42,17 @@ export const actions = {
       throw new Error(response.data.error);
     }
   },
+  async logOut({ commit }) {
+    const response = await axios.post(
+      `${process.env.VUE_APP_BACKEND_URL}/logout`
+    );
+
+    if (response.status === 200) {
+      commit("logOut");
+    } else {
+      throw new Error(response.data.error);
+    }
+  },
   async getRecipes({ commit }) {
     const response = await axios.get(
       `${process.env.VUE_APP_BACKEND_URL}/recipes`
@@ -72,6 +83,17 @@ export const actions = {
 
     if (response.status === 200) {
       commit("removeRecipe", recipe);
+    } else {
+      throw new Error(response.data.error);
+    }
+  },
+  async isAuthenticated({ commit }) {
+    const response = await axios.get(
+      `${process.env.VUE_APP_BACKEND_URL}/isAuth`
+    );
+
+    if (response.status === 200) {
+      commit("logIn");
     } else {
       throw new Error(response.data.error);
     }

@@ -4,6 +4,10 @@ import { state, mutations, actions } from "../../../src/store";
 jest.mock("axios");
 
 describe("The store", () => {
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   describe("The state", () => {
     it("has a loggedIn status state", () => {
       expect(state.isLoggedIn).toBeDefined();
@@ -54,13 +58,63 @@ describe("The store", () => {
   });
 
   describe("The actions", () => {
-    describe("login method", () => {
+    describe("auth methods", () => {
       afterEach(() => {
         state.isLoggedIn = false;
       });
 
       it("has a method for authenticating on the backend", () => {
         expect(actions.attemptLogin).toBeDefined();
+      });
+
+      it("has a method for checking the auth session validity", () => {
+        expect(actions.isAuthenticated).toBeDefined();
+      });
+
+      it("has a method for logging out the user", () => {
+        expect(actions.logOut).toBeDefined();
+      });
+
+      test("the logout method makes a logout call to the backend", async () => {
+        const spy = jest
+          .spyOn(axios, "post")
+          .mockResolvedValue({ status: 200 });
+
+        const context = {
+          commit: () => mutations.logOut(state),
+        };
+
+        await actions.logOut(context);
+
+        expect(spy).toBeCalledTimes(1);
+      });
+
+      test("the logout method commits loggedIn status change on successful API call", async () => {
+        axios.post.mockResolvedValue({ status: 200 });
+
+        const spy = jest.spyOn(mutations, "logOut");
+
+        const context = {
+          commit: () => mutations.logOut(state),
+        };
+
+        await actions.logOut(context);
+
+        expect(spy).toBeCalledTimes(1);
+      });
+
+      test("the auth check method sets the login status if successful", async () => {
+        axios.get.mockImplementationOnce(() =>
+          Promise.resolve({ status: 200 })
+        );
+
+        const context = {
+          commit: () => mutations.logIn(state),
+        };
+
+        await actions.isAuthenticated(context);
+
+        expect(state.isLoggedIn).toBe(true);
       });
 
       it("sets the loggedIn status to true if the call is successful", async () => {
