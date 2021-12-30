@@ -186,3 +186,14 @@ describe("POST /api/logout", () => {
         expect(res.status).toBe(200);
     });
 });
+
+describe("GET /api/isAuth", () => {
+    const route = "/api/isAuth";
+
+    // It's just a wrapper for the sessionAuth middleware, really.
+    it("should exist", async () => {
+        const res = await request(app).post(route);
+
+        expect(res.status).toBeDefined();
+    });
+});

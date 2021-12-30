@@ -84,9 +84,13 @@ router.post("/logout", sessionAuth, (req, res) => {
     const { session } = req;
 
     session.destroy();
-    
+
     res.clearCookie("auth");
     res.send();
+});
+
+router.get("/isAuth", sessionAuth, (req, res) => {
+    res.send({ isAuth: true });
 });
 
 module.exports = router;
