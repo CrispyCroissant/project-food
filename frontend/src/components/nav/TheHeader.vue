@@ -15,9 +15,13 @@
 export default {
   name: "TheHeader",
   methods: {
-    // TODO: Make a logout call to the backend too
     async logout() {
+      try {
+        await this.$store.dispatch("logOut");
       await this.$router.push({ name: "SignIn" });
+      } catch (error) {
+        return;
+      }
     },
   },
 };
