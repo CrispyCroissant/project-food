@@ -130,4 +130,23 @@ describe("The login form", () => {
 
     expect(spy).toBeCalledTimes(1);
   });
+
+  it("redirects to front page on successful sign in", async () => {
+    wrapper = mount(TheLoginForm, {
+      localVue,
+      vuetify,
+      router,
+      mocks: {
+        $store: {
+          dispatch: () => Promise.resolve(),
+        },
+      },
+    });
+
+    const spy = jest.spyOn(wrapper.vm.$router, "push").mockResolvedValueOnce();
+
+    await wrapper.findComponent({ ref: "loginBtn" }).trigger("click");
+
+    expect(spy).toBeCalledTimes(1);
+  });
 });
