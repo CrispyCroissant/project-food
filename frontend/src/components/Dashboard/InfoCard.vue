@@ -44,6 +44,12 @@ export default {
   methods: {
     getRandomRecipe() {
       const recipes = this.$store.state.recipes;
+
+      if (recipes.length === 0) {
+        this.recipe = "";
+        return;
+      }
+
       const randomIndex = Math.floor(Math.random() * recipes.length);
       const randomRecipe = recipes[randomIndex];
 
