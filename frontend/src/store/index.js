@@ -76,6 +76,17 @@ export const actions = {
       throw new Error(response.data.error);
     }
   },
+  async isAuthenticated({ commit }) {
+    const response = await axios.get(
+      `${process.env.VUE_APP_BACKEND_URL}/isAuth`
+    );
+
+    if (response.status === 200) {
+      commit("logIn");
+    } else {
+      throw new Error(response.data.error);
+    }
+  },
 };
 export const getters = {};
 

@@ -63,6 +63,24 @@ describe("The store", () => {
         expect(actions.attemptLogin).toBeDefined();
       });
 
+      it("has a method for checking the auth session validity", () => {
+        expect(actions.isAuthenticated).toBeDefined();
+      });
+
+      test("the auth check method sets the login status if successful", async () => {
+        axios.get.mockImplementationOnce(() =>
+          Promise.resolve({ status: 200 })
+        );
+
+        const context = {
+          commit: () => mutations.logIn(state),
+        };
+
+        await actions.isAuthenticated(context);
+
+        expect(state.isLoggedIn).toBe(true);
+      });
+
       it("sets the loggedIn status to true if the call is successful", async () => {
         axios.post.mockImplementationOnce(() =>
           Promise.resolve({ status: 200 })
