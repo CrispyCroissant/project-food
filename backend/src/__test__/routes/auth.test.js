@@ -164,3 +164,25 @@ describe("POST /api/confirm/:id", () => {
         expect(res.status).toBe(404);
     });
 });
+
+jest.mock("../../middleware/sessionAuth", () =>
+    jest.fn((req, __, next) => {
+        next();
+    })
+);
+
+describe("POST /api/logout", () => {
+    const route = "/api/logout";
+
+    it("should exist", async () => {
+        const res = await request(app).post(route);
+
+        expect(res.status).toBeDefined();
+    });
+
+    it("should return 200 if session was deleted", async () => {
+        const res = await request(app).post(route);
+
+        expect(res.status).toBe(200);
+    });
+});

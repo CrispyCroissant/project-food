@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const sendConfirmationMail = require("../utils/mail");
+const sessionAuth = require("../middleware/sessionAuth");
 
 router.post("/register", async (req, res) => {
     const { email, password } = req.body;
@@ -77,6 +78,15 @@ router.get("/confirm/:id", async (req, res) => {
     }
 
     res.redirect(301, process.env.FRONTEND_URL);
+});
+
+router.post("/logout", sessionAuth, (req, res) => {
+    const { session } = req;
+
+    session.destroy();
+    
+    res.clearCookie("auth");
+    res.send();
 });
 
 module.exports = router;
