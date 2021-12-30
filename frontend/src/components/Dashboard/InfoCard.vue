@@ -50,6 +50,11 @@ export default {
       randomRecipe ? (this.recipe = randomRecipe) : null;
     },
   },
+  watch: {
+    "$store.state.recipes"() {
+      this.getRandomRecipe();
+    },
+  },
   created() {
     this.getRandomRecipe();
   },

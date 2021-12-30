@@ -149,4 +149,22 @@ describe("The info card", () => {
 
     expect(titleRecipes).toBe("Your next recipe is");
   });
+
+  it("should watch the Vuex store for changes", async () => {
+    wrapper = mount(InfoCard, {
+      localVue,
+      vuetify,
+      store: new Vuex.Store({
+        state: {
+          recipes: ["One"],
+        },
+      }),
+    });
+    const spy = jest.spyOn(wrapper.vm, "getRandomRecipe");
+
+    wrapper.vm.$store.state.recipes = ["two"];
+    await wrapper.vm.$nextTick();
+
+    expect(spy).toBeCalledTimes(1);
+  });
 });
