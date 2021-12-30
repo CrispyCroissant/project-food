@@ -73,5 +73,14 @@ export default {
       }
     },
   },
+  async created() {
+    try {
+      await this.$store.dispatch("getRecipes");
+    } catch (error) {
+      if (error.message === "Couldn't find any recipes") {
+        return;
+      }
+    }
+  },
 };
 </script>

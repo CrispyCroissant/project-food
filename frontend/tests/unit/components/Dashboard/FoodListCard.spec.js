@@ -12,7 +12,7 @@ describe("The card", () => {
 
   beforeEach(() => {
     vuetify = new Vuetify();
-    store = { state: { recipes: [] } };
+    store = new Vuex.Store({ state: { recipes: [] } });
   });
 
   afterEach(() => {
@@ -89,6 +89,23 @@ describe("The card", () => {
 
       expect(recipe).toBe(exampleList[i]);
     }
+  });
+
+  it("should update the Vuex store upon creation", async () => {
+    const actions = { getRecipes: jest.fn() };
+
+    wrapper = mount(FoodListCard, {
+      localVue,
+      vuetify,
+      store: new Vuex.Store({
+        actions,
+        state: {
+          recipes: ["One"],
+        },
+      }),
+    });
+
+    expect(actions.getRecipes).toBeCalledTimes(1);
   });
 
   test("the delete button should delete the recipe", async () => {
