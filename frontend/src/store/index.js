@@ -42,6 +42,17 @@ export const actions = {
       throw new Error(response.data.error);
     }
   },
+  async logOut({ commit }) {
+    const response = await axios.post(
+      `${process.env.VUE_APP_BACKEND_URL}/logout`
+    );
+
+    if (response.status === 200) {
+      commit("logOut");
+    } else {
+      throw new Error(response.data.error);
+    }
+  },
   async getRecipes({ commit }) {
     const response = await axios.get(
       `${process.env.VUE_APP_BACKEND_URL}/recipes`
