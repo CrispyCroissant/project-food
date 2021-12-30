@@ -7,7 +7,7 @@
         </v-alert>
       </div>
     </v-expand-transition>
-    <v-card-title>Your foods</v-card-title>
+    <v-card-title>Your recipes</v-card-title>
     <v-card-text>
       <v-list v-if="recipes.length > 0" ref="cardList">
         <v-list-item
@@ -16,7 +16,7 @@
           v-for="recipe in recipes"
           :key="recipe"
         >
-          <v-list-item-content class="mr-4">
+          <v-list-item-content class="mr-4 pa-0">
             {{ recipe }}
           </v-list-item-content>
           <v-list-item-icon>
