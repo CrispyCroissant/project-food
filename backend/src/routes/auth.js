@@ -65,7 +65,7 @@ router.post("/login", async (req, res) => {
     res.send({ status: 200 });
 });
 
-router.post("/confirm/:id", async (req, res) => {
+router.get("/confirm/:id", async (req, res) => {
     const id = req.params.id;
 
     try {
@@ -76,7 +76,7 @@ router.post("/confirm/:id", async (req, res) => {
         return res.status(404).send({ error: error.message });
     }
 
-    res.send({ status: 200 });
+    res.redirect(301, process.env.FRONTEND_URL);
 });
 
 module.exports = router;
