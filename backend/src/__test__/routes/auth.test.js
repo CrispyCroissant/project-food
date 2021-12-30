@@ -131,7 +131,7 @@ describe("POST /api/confirm/:id", () => {
     const route = "/api/confirm/1";
 
     it("should exist", async () => {
-        const res = await request(app).post(route);
+        const res = await request(app).get(route);
 
         expect(res).toBeDefined();
     });
@@ -150,15 +150,15 @@ describe("POST /api/confirm/:id", () => {
             .spyOn(User.prototype, "save")
             .mockImplementationOnce(() => Promise.resolve());
 
-        const res = await request(app).post(route);
+        const res = await request(app).get(route);
 
         expect(res).toBeDefined();
-        expect(res.status).toBe(200);
+        expect(res.status).toBe(301);
         expect(spy).toHaveBeenCalledTimes(1);
     });
 
     it("should return status 404 if ID not found", async () => {
-        const res = await request(app).post(route);
+        const res = await request(app).get(route);
 
         expect(res).toBeDefined();
         expect(res.status).toBe(404);
