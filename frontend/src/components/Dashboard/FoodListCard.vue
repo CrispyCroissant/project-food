@@ -7,7 +7,7 @@
         </v-alert>
       </div>
     </v-expand-transition>
-    <v-card-title>Your recipes</v-card-title>
+    <v-card-title class="px-15">Your recipes</v-card-title>
     <v-card-text>
       <v-list v-if="recipes.length > 0" ref="cardList">
         <v-list-item
