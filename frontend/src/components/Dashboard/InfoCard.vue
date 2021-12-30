@@ -53,7 +53,13 @@ export default {
       const randomIndex = Math.floor(Math.random() * recipes.length);
       const randomRecipe = recipes[randomIndex];
 
-      randomRecipe ? (this.recipe = randomRecipe) : null;
+      if (recipes.length === 1) {
+        this.recipe = randomRecipe;
+      } else if (randomRecipe !== this.recipe) {
+        this.recipe = randomRecipe;
+      } else {
+        this.getRandomRecipe();
+      }
     },
   },
   watch: {
