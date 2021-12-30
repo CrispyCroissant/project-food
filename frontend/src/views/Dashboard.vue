@@ -1,14 +1,14 @@
 <template>
-  <div>
-    <the-header></the-header>
+  <div id="fakeContainer" class="d-flex flex-column">
+    <the-header class="d-flex flex-column flex-grow-0"></the-header>
     <v-container fluid class="d-flex flex-column flex-grow-1">
-      <v-row justify="center" align="center">
-        <v-col cols="12" class="d-flex justify-center flex-grow-1">
+      <v-row align="end">
+        <v-col cols="12" class="d-flex justify-center">
           <info-card></info-card>
         </v-col>
       </v-row>
-      <v-row justify="center" align="center">
-        <v-col cols="12" class="d-flex justify-center flex-grow-1">
+      <v-row align="start">
+        <v-col cols="12" class="d-flex justify-center">
           <food-list-card></food-list-card>
         </v-col>
       </v-row>
@@ -26,3 +26,9 @@ export default {
   components: { TheHeader, FoodListCard, InfoCard },
 };
 </script>
+
+<style scoped>
+#fakeContainer {
+  height: 100%;
+}
+</style>
