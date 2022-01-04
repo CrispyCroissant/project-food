@@ -9,7 +9,12 @@
     </v-expand-transition>
     <v-card-title class="px-15">Your recipes</v-card-title>
     <v-card-text>
-      <v-list v-if="recipes.length > 0" ref="cardList">
+      <v-list
+        class="overflow-y-auto"
+        max-height="200px"
+        v-if="recipes.length > 0"
+        ref="cardList"
+      >
         <v-list-item
           class="px-0"
           ref="recipeList"
