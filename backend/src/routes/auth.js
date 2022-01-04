@@ -54,13 +54,19 @@ router.post("/login", async (req, res) => {
     try {
         const user = await User.findOne({ email });
 
-        if (!(await user.verifyPassword(password))) {
-            return res.status(401).send({ error: "Password is invalid!" });
+        if (user) {
+            if (!(await user.verifyPassword(password))) {
+                return res.status(401).send({ error: "Password is invalid!" });
+            }
+        } else {
+            return res
+                .status(404)
+                .send({ error: "This account does not exist!" });
         }
 
         session.userID = user._id;
     } catch (error) {
-        return res.status(400).send({ error: error.message });
+        return res.status(400).send({ error: "Something went wrong!" });
     }
 
     res.send({ status: 200 });

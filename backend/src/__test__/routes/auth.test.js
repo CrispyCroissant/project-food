@@ -125,6 +125,21 @@ describe("POST /api/login", () => {
         expect(res.status).toBe(401);
         expect(res.body.error).toBe("Password is invalid!");
     });
+
+    it("should return status 404 if account is missing", async () => {
+        const creds = {
+            email: "email@email.com",
+            password: "123",
+        };
+
+        mockingoose(User).toReturn(null, "findOne");
+
+        const res = await request(app).post(route).send(creds);
+
+        expect(res).toBeDefined();
+        expect(res.status).toBe(404);
+        expect(res.body.error).toBe("This account does not exist!");
+    });
 });
 
 describe("POST /api/confirm/:id", () => {
