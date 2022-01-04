@@ -56,7 +56,6 @@ export default {
   name: "TheSignUpForm",
   data() {
     return {
-      valid: false,
       loading: false,
       error: "",
       email: "",
@@ -73,39 +72,35 @@ export default {
   },
   methods: {
     validate() {
-      this.valid = this.$refs.form.validate();
+      this.$refs.form.validate();
     },
     async signUp() {
-      if (this.valid) {
-        try {
-          this.error = "";
-          this.loading = true;
-          const response = await axios.post(
-            `${process.env.VUE_APP_BACKEND_URL}/register`,
-            {
-              email: this.email,
-              password: this.password,
-            }
-          );
-          this.loading = false;
-
-          const { status } = response;
-
-          if (status === 200) {
-            await this.routeSignIn({ confirmation: true });
+      try {
+        this.error = "";
+        this.loading = true;
+        const response = await axios.post(
+          `${process.env.VUE_APP_BACKEND_URL}/register`,
+          {
+            email: this.email,
+            password: this.password,
           }
-        } catch (error) {
-          this.error = error.response.data.error;
-          this.loading = false;
+        );
+        this.loading = false;
+
+        const { status, data } = response;
+
+        if (status === 200) {
+          await this.routeSignIn({ confirmation: true });
+        } else {
+          throw new Error(data.error);
         }
+      } catch (error) {
+        this.error = error.message;
+        this.loading = false;
       }
     },
     async routeSignIn(params) {
-      try {
-        await this.$router.push({ name: "SignIn", params });
-      } catch (error) {
-        return;
-      }
+      await this.$router.push({ name: "SignIn", params });
     },
   },
 };
