@@ -19,7 +19,7 @@ describe("POST /api/register", () => {
 
         const res = await request(app).post(route).send(creds);
 
-        expect(res).toBeDefined();
+        expect(res.status).toBeDefined();
     });
 
     it("should return error if email is not given", async () => {
@@ -29,7 +29,6 @@ describe("POST /api/register", () => {
 
         const res = await request(app).post(route).send(creds);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(400);
         expect(res.body.error).toBe("Email is required!");
     });
@@ -41,7 +40,6 @@ describe("POST /api/register", () => {
 
         const res = await request(app).post(route).send(creds);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(400);
         expect(res.body.error).toBe("Password is required!");
     });
@@ -54,7 +52,6 @@ describe("POST /api/register", () => {
 
         const res = await request(app).post(route).send(creds);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(200);
         expect(res.body.status).toBe(200);
     });
@@ -67,7 +64,6 @@ describe("POST /api/register", () => {
 
         const res = await request(app).post(route).send(creds);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(400);
         expect(res.body.error).toBeDefined();
     });
@@ -89,7 +85,6 @@ describe("POST /api/login", () => {
 
         const res = await request(app).post(route).send(creds);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(400);
         expect(res.body.error).toBe("Email is required!");
     });
@@ -101,7 +96,6 @@ describe("POST /api/login", () => {
 
         const res = await request(app).post(route).send(creds);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(400);
         expect(res.body.error).toBe("Password is required!");
     });
@@ -121,9 +115,22 @@ describe("POST /api/login", () => {
 
         const res = await request(app).post(route).send(creds);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(401);
         expect(res.body.error).toBe("Password is invalid!");
+    });
+
+    it("should return status 404 if account is missing", async () => {
+        const creds = {
+            email: "email@email.com",
+            password: "123",
+        };
+
+        mockingoose(User).toReturn(null, "findOne");
+
+        const res = await request(app).post(route).send(creds);
+
+        expect(res.status).toBe(404);
+        expect(res.body.error).toBe("This account does not exist!");
     });
 });
 
@@ -152,7 +159,6 @@ describe("POST /api/confirm/:id", () => {
 
         const res = await request(app).get(route);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(301);
         expect(spy).toHaveBeenCalledTimes(1);
     });
@@ -160,7 +166,6 @@ describe("POST /api/confirm/:id", () => {
     it("should return status 404 if ID not found", async () => {
         const res = await request(app).get(route);
 
-        expect(res).toBeDefined();
         expect(res.status).toBe(404);
     });
 });

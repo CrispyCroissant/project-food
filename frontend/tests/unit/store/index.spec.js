@@ -133,7 +133,7 @@ describe("The store", () => {
 
       it("throws an error if the API call went bad", async () => {
         axios.post.mockImplementationOnce(() =>
-          Promise.reject(new Error("Axios failed!"))
+          Promise.reject({ response: { data: { error: "Axios failed!" } } })
         );
 
         const context = {
@@ -151,12 +151,7 @@ describe("The store", () => {
 
       it("throws an error if the authentication failed", async () => {
         axios.post.mockImplementationOnce(() =>
-          Promise.resolve({
-            data: {
-              error: "An error message",
-            },
-            status: 401,
-          })
+          Promise.reject({ response: { data: { error: "An error message" } } })
         );
 
         const context = {
@@ -260,12 +255,7 @@ describe("The store", () => {
 
       it("should throw an error if API call was not successful", async () => {
         axios.get.mockImplementationOnce(() =>
-          Promise.resolve({
-            data: {
-              error: "Error message",
-            },
-            status: 400,
-          })
+          Promise.reject({ response: { data: { error: "Error message" } } })
         );
 
         const context = {

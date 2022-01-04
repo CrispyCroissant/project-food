@@ -21,6 +21,7 @@ describe("The sign up form", () => {
 
   afterEach(() => {
     wrapper.destroy();
+    jest.resetAllMocks();
   });
 
   it("should NOT show an error alert if there's no error", () => {
@@ -100,12 +101,13 @@ describe("The sign up form", () => {
   });
 
   it("validates the sign up form on button click", async () => {
+    axios.post.mockImplementationOnce(() => Promise.resolve({ status: 200 }));
+
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
     });
     const spy = jest.spyOn(wrapper.vm, "validate");
-    await wrapper.vm.$forceUpdate();
 
     await wrapper.findComponent({ ref: "signUpBtn" }).trigger("click");
 
@@ -121,7 +123,6 @@ describe("The sign up form", () => {
       router,
     });
     const spy = jest.spyOn(wrapper.vm, "signUp");
-    await wrapper.vm.$forceUpdate();
 
     await wrapper.findComponent({ ref: "signUpBtn" }).trigger("click");
 
@@ -131,15 +132,24 @@ describe("The sign up form", () => {
 
   it("throws an error if sign up failed", async () => {
     axios.post.mockImplementationOnce(() =>
-      Promise.resolve({ status: 400, data: { error: "Error message" } })
+      Promise.reject({ response: { data: { error: "Error message" } } })
     );
 
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
+      router,
+      data() {
+        return {
+          valid: true,
+        };
+      },
     });
+
+    jest.spyOn(wrapper.vm, "validate").mockImplementationOnce(() => jest.fn());
+    jest.spyOn(wrapper.vm.$router, "push").mockResolvedValueOnce(true);
+
     const spy = jest.spyOn(wrapper.vm, "signUp");
-    await wrapper.vm.$forceUpdate();
 
     await wrapper.findComponent({ ref: "signUpBtn" }).trigger("click");
 
@@ -154,7 +164,15 @@ describe("The sign up form", () => {
       localVue,
       vuetify,
       router,
+      data() {
+        return {
+          valid: true,
+        };
+      },
     });
+
+    jest.spyOn(wrapper.vm, "validate").mockImplementationOnce(() => jest.fn());
+
     const spy = jest.spyOn(wrapper.vm.$router, "push");
 
     await wrapper.findComponent({ ref: "signUpBtn" }).trigger("click");

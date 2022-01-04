@@ -6,7 +6,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, "Email is required!"],
-        unique: [true, "This email is already registered!"],
+        unique: true,
         trim: true,
         validate: {
             validator: validator.isEmail,
@@ -44,6 +44,14 @@ userSchema.methods.verifyPassword = async function (password) {
         throw error;
     }
 };
+
+userSchema.post("save", function (error, doc, next) {
+    if (error.code === 11000) {
+        next(new Error("This email is already in use!"));
+    } else {
+        next(error);
+    }
+});
 
 const user = mongoose.model("User", userSchema);
 
