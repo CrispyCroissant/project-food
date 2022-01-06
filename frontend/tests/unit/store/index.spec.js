@@ -1,5 +1,5 @@
 import axios from "axios";
-import { state, mutations, actions } from "../../../src/store";
+import { state, mutations, actions } from "@/store";
 
 jest.mock("axios");
 
@@ -17,6 +17,10 @@ describe("The store", () => {
     it("has an array of recipes", () => {
       expect(state.recipes).toEqual([]);
     });
+
+    it("has a locale state", () => {
+      expect(state.locale).toEqual("");
+    });
   });
 
   describe("The mutations", () => {
@@ -30,6 +34,12 @@ describe("The store", () => {
       mutations.logOut(state);
 
       expect(state.isLoggedIn).toBe(false);
+    });
+
+    it("has a mutation which sets the locale string", () => {
+      mutations.setLocale(state, "test");
+
+      expect(state.locale).toBe("test");
     });
 
     it("has a mutation which replaces/sets the list of recipes", () => {

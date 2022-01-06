@@ -5,10 +5,14 @@ import Vuex from "vuex";
 Vue.use(Vuex);
 
 export const state = {
+  locale: "",
   isLoggedIn: false,
   recipes: [],
 };
 export const mutations = {
+  setLocale(state, locale) {
+    state.locale = locale;
+  },
   logIn(state) {
     state.isLoggedIn = true;
   },
