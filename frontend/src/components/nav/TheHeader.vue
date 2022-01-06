@@ -12,6 +12,7 @@
         </v-alert>
       </div>
     </v-expand-transition>
+    <language-selector></language-selector>
     <v-btn icon ref="logOutBtn" @click="logout">
       <v-icon color="primary">mdi-logout</v-icon>
     </v-btn>
@@ -19,8 +20,11 @@
 </template>
 
 <script>
+import LanguageSelector from "@/components/ui/LanguageSelector.vue";
+
 export default {
   name: "TheHeader",
+  components: { LanguageSelector },
   data() {
     return {
       error: "",
