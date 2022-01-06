@@ -19,6 +19,10 @@ describe("The header", () => {
       localVue,
       vuetify,
       mocks: { $i18n: { locale: "" } },
+      store: new Vuex.Store({
+        state: { locale: "sv" },
+        mutations: { setLocale: jest.fn() },
+      }),
     });
   });
 
@@ -30,18 +34,8 @@ describe("The header", () => {
     expect(wrapper.exists()).toBe(true);
   });
 
-  it("should show error alert upon error", () => {
-    wrapper = mount(TheHeader, {
-      localVue,
-      vuetify,
-      data() {
-        return {
-          error: "message",
-        };
-      },
-      mocks: { $i18n: { locale: "" } },
-    });
-
+  it("should show error alert upon error", async () => {
+    await wrapper.setData({ error: "err" });
     expect(wrapper.findComponent({ ref: "errorAlert" }).exists()).toBe(true);
   });
 

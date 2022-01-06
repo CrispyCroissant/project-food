@@ -1,9 +1,11 @@
 import { createLocalVue, mount } from "@vue/test-utils";
 import LanguageSelector from "@/components/ui/LanguageSelector.vue";
 import Vuetify from "vuetify";
+import Vuex from "vuex";
 
 describe("The selector", () => {
   const localVue = createLocalVue();
+  localVue.use(Vuex);
   let vuetify;
   let wrapper;
   document.body.setAttribute("data-app", true); // Fixes some strange warning
@@ -14,6 +16,10 @@ describe("The selector", () => {
       localVue,
       vuetify,
       mocks: { $i18n: { locale: "" } },
+      store: new Vuex.Store({
+        state: { locale: "" },
+        mutations: { setLocale: jest.fn() },
+      }),
     });
   });
 
@@ -66,6 +72,10 @@ describe("The selector", () => {
       localVue,
       vuetify,
       mocks: { $i18n: { locale: "" } },
+      store: new Vuex.Store({
+        state: { locale: "" },
+        mutations: { setLocale: jest.fn() },
+      }),
     });
 
     const countryProp = wrapper
@@ -85,6 +95,10 @@ describe("The selector", () => {
       localVue,
       vuetify,
       mocks: { $i18n: { locale: "" } },
+      store: new Vuex.Store({
+        state: { locale: "" },
+        mutations: { setLocale: jest.fn() },
+      }),
     });
 
     const countryProp = wrapper
@@ -131,6 +145,10 @@ describe("The selector", () => {
       localVue,
       vuetify,
       mocks: { $i18n: { locale: "" } },
+      store: new Vuex.Store({
+        state: { locale: "" },
+        mutations: { setLocale: jest.fn() },
+      }),
     });
 
     await wrapper.findComponent({ ref: "langBtn" }).trigger("click");
@@ -160,6 +178,10 @@ describe("The selector", () => {
       localVue,
       vuetify,
       mocks: { $i18n: { locale: "" } },
+      store: new Vuex.Store({
+        state: { locale: "" },
+        mutations: { setLocale: jest.fn() },
+      }),
     });
 
     await wrapper.findComponent({ ref: "langBtn" }).trigger("click");
@@ -173,5 +195,38 @@ describe("The selector", () => {
     await wrapper.find("#pl").trigger("click");
 
     expect(wrapper.vm.$i18n.locale).toBe("pl");
+  });
+
+  it("will use the stored vuex locale upon creation if it's been set", () => {
+    const spy = jest.spyOn(LanguageSelector.methods, "setFlag");
+
+    wrapper = mount(LanguageSelector, {
+      localVue,
+      vuetify,
+      mocks: { $i18n: { locale: "" } },
+      store: new Vuex.Store({
+        state: { locale: "sv" },
+        mutations: { setLocale: jest.fn() },
+      }),
+    });
+
+    expect(spy).toBeCalledWith("swe");
+  });
+
+  it("will commit locale changes to Vuex", () => {
+    const mutations = { setLocale: jest.fn() };
+
+    wrapper = mount(LanguageSelector, {
+      localVue,
+      vuetify,
+      mocks: { $i18n: { locale: "" } },
+      store: new Vuex.Store({
+        state: { locale: "sv" },
+        mutations,
+      }),
+    });
+
+    expect(mutations.setLocale).toBeCalledTimes(1);
+    expect(mutations.setLocale).toBeCalledWith({ locale: "sv" }, "sv");
   });
 });

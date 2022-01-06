@@ -50,12 +50,15 @@ export default {
         switch (flagCode) {
           case "swe":
             this.$i18n.locale = "sv";
+            this.$store.commit("setLocale", "sv");
             break;
           case "gb":
             this.$i18n.locale = "en";
+            this.$store.commit("setLocale", "en");
             break;
           default:
             this.$i18n.locale = flagCode;
+            this.$store.commit("setLocale", flagCode);
             break;
         }
         this.currentFlag = flagCode;
@@ -73,6 +76,7 @@ export default {
         }
         if (this.supportedFlags.includes(this.currentFlag)) {
           this.$i18n.locale = locale;
+          this.$store.commit("setLocale", locale);
         }
       }
     },
@@ -83,7 +87,22 @@ export default {
     },
   },
   created() {
-    this.setFlag();
+    const storedLocale = this.$store.state.locale;
+
+    if (storedLocale) {
+      switch (storedLocale) {
+        case "en":
+          this.setFlag("gb");
+          break;
+        case "sv":
+          this.setFlag("swe");
+          break;
+        default:
+          this.setFlag(storedLocale);
+      }
+    } else {
+      this.setFlag();
+    }
   },
 };
 </script>
