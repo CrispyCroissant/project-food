@@ -15,6 +15,11 @@ describe("The header", () => {
   beforeEach(() => {
     vuetify = new Vuetify();
     router = new VueRouter();
+    wrapper = wrapper = mount(TheHeader, {
+      localVue,
+      vuetify,
+      mocks: { $i18n: { locale: "" } },
+    });
   });
 
   afterEach(() => {
@@ -22,11 +27,6 @@ describe("The header", () => {
   });
 
   it("should exist", () => {
-    wrapper = mount(TheHeader, {
-      localVue,
-      vuetify,
-    });
-
     expect(wrapper.exists()).toBe(true);
   });
 
@@ -39,17 +39,13 @@ describe("The header", () => {
           error: "message",
         };
       },
+      mocks: { $i18n: { locale: "" } },
     });
 
     expect(wrapper.findComponent({ ref: "errorAlert" }).exists()).toBe(true);
   });
 
   it("should NOT show an error alert if there's no error", () => {
-    wrapper = mount(TheHeader, {
-      localVue,
-      vuetify,
-    });
-
     expect(wrapper.findComponent({ ref: "errorAlert" }).exists()).toBe(false);
   });
 
@@ -63,6 +59,7 @@ describe("The header", () => {
       vuetify,
       router,
       store: new Vuex.Store({ actions }),
+      mocks: { $i18n: { locale: "" } },
     });
 
     const spy = jest.spyOn(wrapper.vm.$router, "push").mockResolvedValue();
@@ -83,6 +80,7 @@ describe("The header", () => {
       vuetify,
       router,
       store: new Vuex.Store({ actions }),
+      mocks: { $i18n: { locale: "" } },
     });
 
     await wrapper.findComponent({ ref: "logOutBtn" }).trigger("click");

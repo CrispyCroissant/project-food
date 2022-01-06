@@ -54,6 +54,7 @@ describe("The login form", () => {
         $t() {
           return "Required";
         },
+        $i18n: { locale: "" },
       },
     });
     const result = wrapper.vm.rules.required[0]("");
