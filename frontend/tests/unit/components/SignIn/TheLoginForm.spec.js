@@ -50,6 +50,11 @@ describe("The login form", () => {
     wrapper = mount(TheLoginForm, {
       localVue,
       vuetify,
+      mocks: {
+        $t() {
+          return "Required";
+        },
+      },
     });
     const result = wrapper.vm.rules.required[0]("");
 

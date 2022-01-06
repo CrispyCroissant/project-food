@@ -8,10 +8,10 @@
           type="success"
           ref="confirmAlert"
         >
-          A confirmation email has been sent to you.
+          {{ $t("loginPage.confirmMessage") }}
           <br />
           <br />
-          You can login after you've confirmed your account.
+          {{ $t("loginPage.confirmInfo") }}
         </v-alert>
         <h1 class="text-h2 text-md-h1 text-center mb-15">Project Food</h1>
         <the-login-form></the-login-form>

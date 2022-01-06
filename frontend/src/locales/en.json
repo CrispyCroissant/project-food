@@ -1,0 +1,13 @@
+{
+  "loginPage": {
+    "confirmMessage": "A confirmation email has been sent to you.",
+    "confirmInfo": "You can login after you've confirmed your account.",
+    "inputLabels": {
+      "email": "Email",
+      "password": "Password",
+      "required": "Required"
+    },
+    "register": "Register here",
+    "signIn": "Sign in"
+  }
+}

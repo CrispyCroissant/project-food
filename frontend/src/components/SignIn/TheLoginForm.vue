@@ -7,7 +7,7 @@
     </v-expand-transition>
     <v-text-field
       autofocus
-      label="Email"
+      :label="$t('loginPage.inputLabels.email')"
       prepend-icon="mdi-email"
       v-model="email"
       :rules="rules.required"
@@ -15,7 +15,7 @@
     ></v-text-field>
     <v-text-field
       type="password"
-      label="Password"
+      :label="$t('loginPage.inputLabels.password')"
       prepend-icon="mdi-key"
       v-model="password"
       :rules="rules.required"
@@ -30,7 +30,9 @@
       </div>
     </v-expand-transition>
     <div class="d-flex justify-space-around my-6">
-      <v-btn text ref="signUpBtn" @click="routeSignUp">Register here</v-btn>
+      <v-btn text ref="signUpBtn" @click="routeSignUp">
+        {{ $t("loginPage.register") }}
+      </v-btn>
       <v-btn
         ref="loginBtn"
         color="primary"
@@ -39,7 +41,7 @@
           login();
         "
       >
-        Sign in
+        {{ $t("loginPage.signIn") }}
       </v-btn>
     </div>
   </v-form>
@@ -55,7 +57,7 @@ export default {
       email: "",
       password: "",
       rules: {
-        required: [(v) => !!v || "Required"],
+        required: [(v) => !!v || this.$t("loginPage.inputLabels.required")],
       },
     };
   },
