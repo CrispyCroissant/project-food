@@ -127,6 +127,9 @@ describe("The info card", () => {
       localVue,
       vuetify,
       store,
+      mocks: {
+        $t: () => "You have no recipes yet!",
+      },
     });
 
     const titleRecipes = wrapper.findComponent({ ref: "titleText" }).text();
@@ -143,6 +146,9 @@ describe("The info card", () => {
           recipes: ["One"],
         },
       }),
+      mocks: {
+        $t: () => "Your next recipe is",
+      },
     });
 
     const titleRecipes = wrapper.findComponent({ ref: "titleText" }).text();

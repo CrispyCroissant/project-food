@@ -21,5 +21,12 @@
     },
     "signUp": "Sign up",
     "signIn": "Sign in"
+  },
+  "dashboard": {
+    "infoCard": {
+      "titleHasRecipe": "Your next recipe is",
+      "titleNoRecipe": "You have no recipes yet!",
+      "generateBtn": "Another one"
+    }
   }
 }
