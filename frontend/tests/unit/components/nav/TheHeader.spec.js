@@ -83,6 +83,8 @@ describe("The header", () => {
       mocks: { $i18n: { locale: "" } },
     });
 
+    jest.spyOn(wrapper.vm.$router, "push").mockResolvedValue();
+
     await wrapper.findComponent({ ref: "logOutBtn" }).trigger("click");
 
     expect(actions.logOut).toBeCalledTimes(1);
