@@ -52,6 +52,9 @@ describe("The sign up form", () => {
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
+      mocks: {
+        $t: () => "Email required",
+      },
     });
     const result = wrapper.vm.emailRules[0]("");
 
@@ -62,6 +65,9 @@ describe("The sign up form", () => {
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
+      mocks: {
+        $t: () => "Password required",
+      },
     });
     const result = wrapper.vm.passwordRules[0]("");
 
@@ -84,6 +90,9 @@ describe("The sign up form", () => {
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
+      mocks: {
+        $t: () => "Email must be valid",
+      },
     });
     const result = wrapper.vm.emailRules[1]("T");
 

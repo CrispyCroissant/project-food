@@ -9,5 +9,17 @@
     },
     "register": "Register here",
     "signIn": "Sign in"
+  },
+  "signUpPage": {
+    "title": "Create an account",
+    "inputLabels": {
+      "email": "Email",
+      "password": "Password",
+      "required": "Required",
+      "emailValid": "Email must be vaild.",
+      "passLength": "Your password must be at least 8 characters"
+    },
+    "signUp": "Sign up",
+    "signIn": "Sign in"
   }
 }
