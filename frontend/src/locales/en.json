@@ -27,6 +27,11 @@
       "titleHasRecipe": "Your next recipe is",
       "titleNoRecipe": "You have no recipes yet!",
       "generateBtn": "Another one"
+    },
+    "foodListCard": {
+      "title": "Your recipes",
+      "dialogInput": "Add food",
+      "addBtn": "Add"
     }
   }
 }
