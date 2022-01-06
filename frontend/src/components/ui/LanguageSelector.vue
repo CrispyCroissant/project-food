@@ -1,35 +1,33 @@
 <template>
-  <v-row justify="center">
-    <v-menu offset-y rounded="rounded">
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn v-bind="attrs" v-on="on" text icon ref="langBtn">
-          <country-flag
-            class="ma-0"
-            :country="currentFlag"
-            rounded
-            shadow
-            ref="currentFlag"
-          ></country-flag>
-        </v-btn>
-      </template>
-      <v-list>
-        <v-list-item v-for="flagCode in notCurrentLangs" :key="flagCode">
-          <v-list-item-title>
-            <v-btn icon text @click="setFlag(flagCode)">
-              <country-flag
-                class="ma-0"
-                :country="flagCode"
-                rounded
-                shadow
-                :id="flagCode"
-                ref="flagBtn"
-              ></country-flag>
-            </v-btn>
-          </v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-menu>
-  </v-row>
+  <v-menu offset-y rounded="rounded">
+    <template v-slot:activator="{ on, attrs }">
+      <v-btn v-bind="attrs" v-on="on" text icon ref="langBtn">
+        <country-flag
+          class="ma-0"
+          :country="currentFlag"
+          rounded
+          shadow
+          ref="currentFlag"
+        ></country-flag>
+      </v-btn>
+    </template>
+    <v-list>
+      <v-list-item v-for="flagCode in notCurrentLangs" :key="flagCode">
+        <v-list-item-title>
+          <v-btn icon text @click="setFlag(flagCode)">
+            <country-flag
+              class="ma-0"
+              :country="flagCode"
+              rounded
+              shadow
+              :id="flagCode"
+              ref="flagBtn"
+            ></country-flag>
+          </v-btn>
+        </v-list-item-title>
+      </v-list-item>
+    </v-list>
+  </v-menu>
 </template>
 
 <script>
