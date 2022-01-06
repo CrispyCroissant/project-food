@@ -3,4 +3,4 @@ import Vuetify from "vuetify";
 import { config } from "@vue/test-utils";
 Vue.use(Vuetify);
 
-config.mocks["$t"] = () => {};
+config.mocks["$t"] = () => "thisStringStopsTestErrors";
