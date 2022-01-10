@@ -36,7 +36,12 @@ if (process.env.NODE_ENV === "production") {
 }
 
 app.use(session(sess));
-app.use(i18n.init);
+app.use((req, res, next) => {
+    i18n.init(req, res);
+    const locale = i18n.getLocale(req);
+    i18n.setLocale(locale);
+    next();
+});
 
 app.use("/api", authRouter);
 app.use("/api", recipeRouter);
