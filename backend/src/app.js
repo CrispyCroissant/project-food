@@ -3,11 +3,10 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
-const i18n = require("i18n");
-const path = require("path");
 const app = express();
 require("./db/db");
 
+const i18n = require("./i18n");
 const authRouter = require("./routes/auth");
 const recipeRouter = require("./routes/recipe");
 
@@ -35,12 +34,6 @@ if (process.env.NODE_ENV === "production") {
     sess.cookie.secure = true;
     sess.store = MongoStore.create({ mongoUrl: process.env.DB_URl });
 }
-
-i18n.configure({
-    locales: ["en", "sv", "pl"],
-    directory: path.join(__dirname, "/locales"),
-    objectNotation: true,
-});
 
 app.use(session(sess));
 app.use(i18n.init);
