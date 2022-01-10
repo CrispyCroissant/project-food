@@ -52,7 +52,7 @@ describe("The header", () => {
       localVue,
       vuetify,
       router,
-      store: new Vuex.Store({ actions }),
+      store: new Vuex.Store({ actions, mutations: { setLocale: jest.fn() } }),
       mocks: { $i18n: { locale: "" } },
     });
 
@@ -73,7 +73,7 @@ describe("The header", () => {
       localVue,
       vuetify,
       router,
-      store: new Vuex.Store({ actions }),
+      store: new Vuex.Store({ actions, mutations: { setLocale: jest.fn() } }),
       mocks: { $i18n: { locale: "" } },
     });
 
