@@ -39,6 +39,7 @@ if (process.env.NODE_ENV === "production") {
 i18n.configure({
     locales: ["en", "sv", "pl"],
     directory: path.join(__dirname, "/locales"),
+    objectNotation: true,
 });
 
 app.use(session(sess));
