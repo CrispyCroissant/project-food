@@ -1,4 +1,5 @@
 const express = require("express");
+const i18n = require("i18n");
 const router = express.Router();
 const User = require("../models/user");
 const sessionAuth = require("../middleware/sessionAuth");
@@ -9,7 +10,7 @@ router.post("/recipe", sessionAuth, async (req, res) => {
     const { userID } = req.session;
 
     if (!recipe) {
-        return res.status(400).send({ error: "No recipe was provided!" });
+        return res.status(400).send({ error: i18n.__("recipe.noRecipe") });
     }
 
     try {
@@ -32,7 +33,7 @@ router.get("/recipes", sessionAuth, async (req, res) => {
         if (user.recipes.length > 0) {
             res.send({ recipes: user.recipes });
         } else {
-            return res.status(404).send({ error: "Couldn't find any recipes" });
+            return res.status(404).send({ error: i18n.__("recipe.noRecipes") });
         }
     } catch (error) {
         return res.status(400).send({ error: error.message });
@@ -82,13 +83,15 @@ router.delete("/recipe/:recipe", sessionAuth, async (req, res) => {
         const user = await User.findById(userID);
 
         if (!user) {
-            return res.status(404).send({ error: "User was not found" });
+            return res
+                .status(404)
+                .send({ error: i18n.__("recipe.userNotFound") });
         }
 
         const recipeIndex = user.recipes.indexOf(recipe);
 
         if (recipeIndex === -1) {
-            return res.status(404).send({ error: "Recipe was not found" });
+            return res.status(404).send({ error: i18n.__("recipe.notFound") });
         }
 
         const deletedRecipe = user.recipes.splice(recipeIndex, 1);
