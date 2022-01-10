@@ -40,7 +40,8 @@ router.get("/recipes", sessionAuth, async (req, res) => {
     }
 });
 
-router.patch("/recipe", sessionAuth, async (req, res) => {
+// * Unsupported endpoint
+/* router.patch("/recipe", sessionAuth, async (req, res) => {
     const { oldRecipe, newRecipe } = req.body;
     const { userID } = req.session;
 
@@ -73,7 +74,7 @@ router.patch("/recipe", sessionAuth, async (req, res) => {
     } catch (error) {
         return res.status(400).send({ error: error.message });
     }
-});
+}); */
 
 router.delete("/recipe/:recipe", sessionAuth, async (req, res) => {
     const { recipe } = req.params;
