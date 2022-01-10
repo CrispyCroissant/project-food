@@ -1,1 +1,15 @@
-{}
+{
+    "auth": {
+        "emailRequired": "Email is required!",
+        "passRequired": "Password is required!",
+        "invalidPass": "Password is invalid!",
+        "noAccount": "This account does not exist!"
+    },
+    "recipe": {
+        "noRecipe": "No recipe was provided!",
+        "noRecipes": "Couldn't find any recipes",
+        "userNotFound": "User was not found",
+        "notFound": "Recipe was not found"
+    },
+    "genericError": "Something went wrong!"
+}
