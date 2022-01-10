@@ -1,9 +1,16 @@
 {
     "auth": {
         "emailRequired": "Email is required!",
+        "emailInvalid": "This email is invalid!",
+        "emailConfStatus": "Email Confirmation status must be set!",
+        "emailIsUsed": "This email is already in use!",
         "passRequired": "Password is required!",
-        "invalidPass": "Password is invalid!",
-        "noAccount": "This account does not exist!"
+        "passInvalid": "Password is invalid!",
+        "passShort": "Password must have at least 8 characters!",
+        "noAccount": "This account does not exist!",
+        "invalidEmail": "auth.invalidEmail",
+        "shortPass": "auth.shortPass",
+        "invalidPass": "auth.invalidPass"
     },
     "recipe": {
         "noRecipe": "No recipe was provided!",

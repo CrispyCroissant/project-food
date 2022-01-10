@@ -59,7 +59,7 @@ router.post("/login", async (req, res) => {
             if (!(await user.verifyPassword(password))) {
                 return res
                     .status(401)
-                    .send({ error: i18n.__("auth.invalidPass") });
+                    .send({ error: i18n.__("auth.passInvalid") });
             }
         } else {
             return res.status(404).send({ error: i18n.__("auth.noAccount") });
