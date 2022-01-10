@@ -1,0 +1,19 @@
+{
+    "auth": {
+        "emailRequired": "Email är obligatorisk!",
+        "emailInvalid": "Denna email är ogiltig!",
+        "emailConfStatus": "Email Confirmation status must be set!",
+        "emailIsUsed": "Denna email används redan!",
+        "passRequired": "Lösenord är obligatoriskt!",
+        "passInvalid": "Lösenordet är ogiltigt!",
+        "passShort": "Lösenordet måste innehålla minst 8 tecken!",
+        "noAccount": "Detta konto finns inte!"
+    },
+    "recipe": {
+        "noRecipe": "Inget recept har angetts!",
+        "noRecipes": "Kunde inte hitta recept",
+        "userNotFound": "Användaren hittades inte",
+        "notFound": "Receptet hittades inte"
+    },
+    "genericError": "Något har gått fel!"
+}

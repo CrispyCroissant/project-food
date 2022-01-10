@@ -1,0 +1,37 @@
+{
+  "loginPage": {
+    "confirmMessage": "Ett bekräftningsmail har skickats till dig.",
+    "confirmInfo": "Du kan logga in efter att du har bekräftat ditt konto.",
+    "inputLabels": {
+      "email": "Email",
+      "password": "Lösenord",
+      "required": "Obligatoriskt"
+    },
+    "register": "Registrera dig",
+    "signIn": "Logga in"
+  },
+  "signUpPage": {
+    "title": "Skapa ett konto",
+    "inputLabels": {
+      "email": "Email",
+      "password": "Lösenord",
+      "required": "Obligatoriskt",
+      "emailValid": "Email måste vara giltigt",
+      "passLength": "Ditt lösenord måste vara minst 8 tecken"
+    },
+    "signUp": "Registrera",
+    "signIn": "Logga in"
+  },
+  "dashboard": {
+    "infoCard": {
+      "titleHasRecipe": "Ditt nästa recept är",
+      "titleNoRecipe": "Du har inga recept än!",
+      "generateBtn": "Annat recept"
+    },
+    "foodListCard": {
+      "title": "Dina recept",
+      "dialogInput": "Lägg till recept",
+      "addBtn": "Lägg till"
+    }
+  }
+}

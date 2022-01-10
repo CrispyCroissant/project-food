@@ -96,7 +96,8 @@ describe("GET /api/recipes", () => {
     });
 });
 
-describe("PATCH /api/recipe", () => {
+// * Unsupported endpoint
+/* describe("PATCH /api/recipe", () => {
     const route = "/api/recipe";
 
     it("should exist", async () => {
@@ -156,7 +157,7 @@ describe("PATCH /api/recipe", () => {
         expect(res.body.oldRecipe).toBe("Test2");
         expect(res.body.newRecipe).toBe("changed");
     });
-});
+}); */
 
 describe("DELETE /api/recipe", () => {
     const route = "/api/recipe";

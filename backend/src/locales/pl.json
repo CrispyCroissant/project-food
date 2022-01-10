@@ -1,0 +1,19 @@
+{
+    "auth": {
+        "emailRequired": "E-mail jest obowiązkowy!",
+        "emailInvalid": "Ten e-mail jest nieprawidłowy!",
+        "emailConfStatus": "Email Confirmation status must be set!",
+        "emailIsUsed": "Ten e-mail jest już w użyciu!",
+        "passRequired": "Hasło jest obowiązkowe!",
+        "passInvalid": "Hasło jest nieprawidłowe!",
+        "passShort": "Hasło musi zawierać co najmniej 8 znaków!",
+        "noAccount": "To konto nie istnieje!"
+    },
+    "recipe": {
+        "noRecipe": "Nie określono przepis!",
+        "noRecipes": "Nie udało się znaleźć przepisu",
+        "userNotFound": "Nie znaleziono użytkownika",
+        "notFound": "Nie znaleziono przepisu"
+    },
+    "genericError": "Coś poszło nie tak!"
+}

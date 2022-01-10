@@ -7,7 +7,9 @@
         </v-alert>
       </div>
     </v-expand-transition>
-    <v-card-title class="px-15">Your recipes</v-card-title>
+    <v-card-title class="px-15">
+      {{ $t("dashboard.foodListCard.title") }}
+    </v-card-title>
     <v-card-text>
       <v-list
         class="overflow-y-auto"

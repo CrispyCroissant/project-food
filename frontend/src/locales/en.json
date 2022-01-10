@@ -1,0 +1,37 @@
+{
+  "loginPage": {
+    "confirmMessage": "A confirmation email has been sent to you.",
+    "confirmInfo": "You can login after you've confirmed your account.",
+    "inputLabels": {
+      "email": "Email",
+      "password": "Password",
+      "required": "Required"
+    },
+    "register": "Register here",
+    "signIn": "Sign in"
+  },
+  "signUpPage": {
+    "title": "Create an account",
+    "inputLabels": {
+      "email": "Email",
+      "password": "Password",
+      "required": "Required",
+      "emailValid": "Email must be vaild.",
+      "passLength": "Your password must be at least 8 characters"
+    },
+    "signUp": "Sign up",
+    "signIn": "Sign in"
+  },
+  "dashboard": {
+    "infoCard": {
+      "titleHasRecipe": "Your next recipe is",
+      "titleNoRecipe": "You have no recipes yet!",
+      "generateBtn": "Another one"
+    },
+    "foodListCard": {
+      "title": "Your recipes",
+      "dialogInput": "Add food",
+      "addBtn": "Add"
+    }
+  }
+}

@@ -1,22 +1,23 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const argon2 = require("argon2");
+const i18n = require("../i18n");
 
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
-        required: [true, "Email is required!"],
+        required: [true, i18n.__("auth.emailRequired")],
         unique: true,
         trim: true,
         validate: {
             validator: validator.isEmail,
-            message: "This email is invalid!",
+            message: i18n.__("auth.emailInvalid"),
         },
     },
     password: {
         type: String,
-        required: [true, "Password is required!"],
-        minlength: [8, "Password must have at least 8 characters!"],
+        required: [true, i18n.__("auth.passRequired")],
+        minlength: [8, i18n.__("auth.passShort")],
     },
     recipes: {
         type: [String],
@@ -25,7 +26,7 @@ const userSchema = new mongoose.Schema({
     },
     emailConfirmed: {
         type: Boolean,
-        required: [true, "Email Confirmation status must be set!"],
+        required: [true, i18n.__("auth.emailConfStatus")],
     },
 });
 
@@ -47,7 +48,7 @@ userSchema.methods.verifyPassword = async function (password) {
 
 userSchema.post("save", function (error, doc, next) {
     if (error.code === 11000) {
-        next(new Error("This email is already in use!"));
+        next(new Error(i18n.__("auth.emailIsUsed")));
     } else {
         next(error);
     }

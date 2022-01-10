@@ -15,11 +15,11 @@
         <v-text-field
           v-model="newRecipe"
           ref="recipeInput"
-          label="Add food"
+          :label="$t('dashboard.foodListCard.dialogInput')"
           :loading="loading"
         ></v-text-field>
         <v-btn ref="addBtn" class="mx-3" color="primary" @click="addRecipe">
-          Add
+          {{ $t("dashboard.foodListCard.addBtn") }}
         </v-btn>
         <v-btn
           ref="closeBtn"

@@ -1,4 +1,5 @@
 const express = require("express");
+const i18n = require("i18n");
 const router = express.Router();
 const User = require("../models/user");
 const sendConfirmationMail = require("../utils/mail");
@@ -8,11 +9,11 @@ router.post("/register", async (req, res) => {
     const { email, password } = req.body;
 
     if (!email) {
-        return res.status(400).send({ error: "Email is required!" });
+        return res.status(400).send({ error: i18n.__("auth.emailRequired") });
     }
 
     if (!password) {
-        return res.status(400).send({ error: "Password is required!" });
+        return res.status(400).send({ error: i18n.__("auth.passRequired") });
     }
 
     const user = new User({
@@ -44,11 +45,11 @@ router.post("/login", async (req, res) => {
     const { session } = req;
 
     if (!email) {
-        return res.status(400).send({ error: "Email is required!" });
+        return res.status(400).send({ error: i18n.__("auth.emailRequired") });
     }
 
     if (!password) {
-        return res.status(400).send({ error: "Password is required!" });
+        return res.status(400).send({ error: i18n.__("auth.passRequired") });
     }
 
     try {
@@ -56,17 +57,17 @@ router.post("/login", async (req, res) => {
 
         if (user) {
             if (!(await user.verifyPassword(password))) {
-                return res.status(401).send({ error: "Password is invalid!" });
+                return res
+                    .status(401)
+                    .send({ error: i18n.__("auth.passInvalid") });
             }
         } else {
-            return res
-                .status(404)
-                .send({ error: "This account does not exist!" });
+            return res.status(404).send({ error: i18n.__("auth.noAccount") });
         }
 
         session.userID = user._id;
     } catch (error) {
-        return res.status(400).send({ error: "Something went wrong!" });
+        return res.status(400).send({ error: i18n.__("genericError") });
     }
 
     res.send({ status: 200 });

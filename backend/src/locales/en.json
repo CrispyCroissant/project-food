@@ -1,0 +1,19 @@
+{
+    "auth": {
+        "emailRequired": "Email is required!",
+        "emailInvalid": "This email is invalid!",
+        "emailConfStatus": "Email Confirmation status must be set!",
+        "emailIsUsed": "This email is already in use!",
+        "passRequired": "Password is required!",
+        "passInvalid": "Password is invalid!",
+        "passShort": "Password must have at least 8 characters!",
+        "noAccount": "This account does not exist!"
+    },
+    "recipe": {
+        "noRecipe": "No recipe was provided!",
+        "noRecipes": "Couldn't find any recipes",
+        "userNotFound": "User was not found",
+        "notFound": "Recipe was not found"
+    },
+    "genericError": "Something went wrong!"
+}

@@ -20,7 +20,7 @@
         color="primary"
         @click="getRandomRecipe"
       >
-        Another one
+        {{$t("dashboard.infoCard.generateBtn")}}
       </v-btn>
     </v-row>
   </v-card>
@@ -38,7 +38,9 @@ export default {
   },
   computed: {
     titleText() {
-      return this.recipe ? "Your next recipe is" : "You have no recipes yet!";
+      return this.recipe
+        ? this.$t("dashboard.infoCard.titleHasRecipe")
+        : this.$t("dashboard.infoCard.titleNoRecipe");
     },
   },
   methods: {

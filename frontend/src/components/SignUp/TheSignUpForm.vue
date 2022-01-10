@@ -7,7 +7,7 @@
     </v-expand-transition>
     <v-text-field
       autofocus
-      label="Email"
+      :label="$t('signUpPage.inputLabels.email')"
       prepend-inner-icon="mdi-email"
       v-model="email"
       :rules="emailRules"
@@ -16,7 +16,7 @@
     ></v-text-field>
     <v-text-field
       type="password"
-      label="Password"
+      :label="$t('signUpPage.inputLabels.password')"
       prepend-inner-icon="mdi-key"
       v-model="password"
       :rules="passwordRules"
@@ -33,7 +33,9 @@
       </div>
     </v-expand-transition>
     <div class="d-flex justify-space-around my-6">
-      <v-btn text @click="routeSignIn" ref="signInBtn">Sign in</v-btn>
+      <v-btn text @click="routeSignIn" ref="signInBtn">
+        {{ $t("signUpPage.signIn") }}
+      </v-btn>
       <v-btn
         ref="signUpBtn"
         color="primary"
@@ -42,7 +44,7 @@
           signUp();
         "
       >
-        Sign Up
+        {{ $t("signUpPage.signUp") }}
       </v-btn>
     </div>
   </v-form>
@@ -62,12 +64,12 @@ export default {
       email: "",
       password: "",
       emailRules: [
-        (v) => !!v || "Email required",
-        (v) => isEmail(v) || "Email must be valid",
+        (v) => !!v || this.$t("signUpPage.inputLabels.required"),
+        (v) => isEmail(v) || this.$t("signUpPage.inputLabels.emailValid"),
       ],
       passwordRules: [
-        (v) => !!v || "Password required",
-        (v) => v.length >= 8 || "Your password must be at least 8 characters",
+        (v) => !!v || this.$t("signUpPage.inputLabels.required"),
+        (v) => v.length >= 8 || this.$t("signUpPage.inputLabels.passLength"),
       ],
     };
   },

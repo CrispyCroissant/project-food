@@ -1,14 +1,19 @@
 import axios from "axios";
 import Vue from "vue";
 import Vuex from "vuex";
+import createPersistedState from "vuex-persistedstate";
 
 Vue.use(Vuex);
 
 export const state = {
+  locale: "",
   isLoggedIn: false,
   recipes: [],
 };
 export const mutations = {
+  setLocale(state, locale) {
+    state.locale = locale;
+  },
   logIn(state) {
     state.isLoggedIn = true;
   },
@@ -119,4 +124,9 @@ export default new Vuex.Store({
   actions,
   getters,
   modules: {},
+  plugins: [
+    createPersistedState({
+      paths: ["locale"],
+    }),
+  ],
 });
