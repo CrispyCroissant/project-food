@@ -1,5 +1,5 @@
 <template>
-  <v-form ref="form" @keydown.enter="validate">
+  <v-form ref="form">
     <v-expand-transition>
       <div v-if="error">
         <v-alert type="error" text ref="errorAlert">{{ error }}</v-alert>
@@ -109,6 +109,14 @@ export default {
         return;
       }
     },
+  },
+  mounted() {
+    window.addEventListener("keydown", async (event) => {
+      if (event.code === "Enter") {
+        this.validate();
+        await this.signUp();
+      }
+    });
   },
 };
 </script>
