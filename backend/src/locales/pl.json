@@ -4,6 +4,7 @@
         "emailInvalid": "Ten e-mail jest nieprawidłowy!",
         "emailConfStatus": "Email Confirmation status must be set!",
         "emailIsUsed": "Ten e-mail jest już w użyciu!",
+        "emailNotConf": "To konto nie zostało potwierdzone!",
         "passRequired": "Hasło jest obowiązkowe!",
         "passInvalid": "Hasło jest nieprawidłowe!",
         "passShort": "Hasło musi zawierać co najmniej 8 znaków!",
