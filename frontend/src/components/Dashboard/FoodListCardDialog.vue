@@ -64,5 +64,12 @@ export default {
       this.error = false;
     },
   },
+  mounted() {
+    window.addEventListener("keydown", async (event) => {
+      if (event.code === "Enter") {
+        await this.addRecipe();
+      }
+    });
+  },
 };
 </script>
