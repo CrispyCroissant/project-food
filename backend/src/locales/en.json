@@ -4,6 +4,7 @@
         "emailInvalid": "This email is invalid!",
         "emailConfStatus": "Email Confirmation status must be set!",
         "emailIsUsed": "This email is already in use!",
+        "emailNotConf": "This account has not been confirmed!",
         "passRequired": "Password is required!",
         "passInvalid": "Password is invalid!",
         "passShort": "Password must have at least 8 characters!",
