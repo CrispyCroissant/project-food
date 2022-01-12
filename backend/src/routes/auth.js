@@ -61,6 +61,11 @@ router.post("/login", async (req, res) => {
                     .status(401)
                     .send({ error: i18n.__("auth.passInvalid") });
             }
+            if (!user.emailConfirmed) {
+                return res
+                    .status(401)
+                    .send({ error: i18n.__("auth.emailNotConf") });
+            }
         } else {
             return res.status(404).send({ error: i18n.__("auth.noAccount") });
         }

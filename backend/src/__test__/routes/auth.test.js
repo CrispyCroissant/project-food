@@ -132,6 +132,28 @@ describe("POST /api/login", () => {
         expect(res.status).toBe(404);
         expect(res.body.error).toBe("This account does not exist!");
     });
+
+    it("should return status 401 if email is not yet confirmed", async () => {
+        const creds = {
+            email: "email@email.com",
+            password: "123",
+        };
+        const user = {
+            ...creds,
+            emailConfirmed: false,
+        };
+
+        jest.spyOn(User.prototype, "verifyPassword").mockResolvedValueOnce(
+            true
+        );
+
+        mockingoose(User).toReturn(user, "findOne");
+
+        const res = await request(app).post(route).send(creds);
+
+        expect(res.status).toBe(401);
+        expect(res.body.error).toBe("This account has not been confirmed!");
+    });
 });
 
 describe("POST /api/confirm/:id", () => {

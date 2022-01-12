@@ -4,6 +4,7 @@
         "emailInvalid": "Denna email är ogiltig!",
         "emailConfStatus": "Email Confirmation status must be set!",
         "emailIsUsed": "Denna email används redan!",
+        "emailNotConf": "Detta konto har inte bekräftats än!",
         "passRequired": "Lösenord är obligatoriskt!",
         "passInvalid": "Lösenordet är ogiltigt!",
         "passShort": "Lösenordet måste innehålla minst 8 tecken!",
