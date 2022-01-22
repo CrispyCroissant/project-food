@@ -36,7 +36,7 @@ async function sendConfirmationMail(credentials) {
             html: `<a href='http://localhost:3000/api/confirm/${id}'>Click here to confirm your account</>`,
         });
 
-        if (process.env.NODE_HOST !== "production") {
+        if (process.env.NODE_ENV !== "production") {
             console.log(`Mail URL: ${nodemailer.getTestMessageUrl(info)}`);
         }
     } catch (error) {
