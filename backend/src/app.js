@@ -3,6 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const morgan = require("morgan");
+const winston = require("./winston");
 const app = express();
 require("./db/db");
 
@@ -17,6 +19,7 @@ app.use(
         credentials: true,
     })
 );
+app.use(morgan("combined", { stream: winston.stream }));
 
 const sess = {
     cookie: {
