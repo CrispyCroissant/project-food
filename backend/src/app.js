@@ -4,11 +4,11 @@ const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
 const morgan = require("morgan");
-const winston = require("./winston");
+const winston = require("./config/winston");
 const app = express();
-require("./db/db");
+require("./config/db");
 
-const i18n = require("./i18n");
+const i18n = require("./config/i18n");
 const authRouter = require("./routes/auth");
 const recipeRouter = require("./routes/recipe");
 

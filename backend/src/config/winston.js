@@ -3,7 +3,7 @@ const winston = require("winston");
 const options = {
     file: {
         level: "info",
-        filename: `${__dirname}/logs/app.log`,
+        filename: `${__dirname}/../logs/app.log`,
         handleExceptions: true,
         json: true,
         maxsize: 5242880, // 5MB
@@ -15,6 +15,7 @@ const options = {
         handleExceptions: true,
         json: false,
         colorize: true,
+        silent: process.env.NODE_ENV === "test",
     },
 };
 
@@ -28,7 +29,7 @@ const logger = winston.createLogger({
 
 logger.stream = {
     write(message) {
-        logger.info(message);
+        logger.info(message.substring(0, message.lastIndexOf("\n")));
     },
 };
 
