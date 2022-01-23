@@ -17,6 +17,8 @@
           ref="recipeInput"
           :label="$t('dashboard.foodListCard.dialogInput')"
           :loading="loading"
+          autofocus
+          :error="!!error"
         ></v-text-field>
         <v-btn ref="addBtn" class="mx-3" color="primary" @click="addRecipe">
           {{ $t("dashboard.foodListCard.addBtn") }}
