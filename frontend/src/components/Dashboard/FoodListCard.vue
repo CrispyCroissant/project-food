@@ -1,5 +1,5 @@
 <template>
-  <v-card elevation="3" outlined shaped :loading="loading">
+  <v-card elevation="3" rounded="lg" :loading="loading">
     <v-expand-transition>
       <div v-if="error">
         <v-alert ref="errorAlert" type="error" class="mb-0" text>
@@ -12,6 +12,7 @@
     </v-card-title>
     <v-card-text>
       <v-list
+        dense
         class="overflow-y-auto"
         max-height="200px"
         v-if="recipes.length > 0"

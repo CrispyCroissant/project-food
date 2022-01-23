@@ -30,5 +30,8 @@ export default {
 <style scoped>
 #fakeContainer {
   height: 100%;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    #fafafa url("~@/assets/bg.jpg");
+  background-size: cover;
 }
 </style>

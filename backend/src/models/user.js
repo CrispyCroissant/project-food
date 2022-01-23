@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 const argon2 = require("argon2");
-const i18n = require("../i18n");
+const i18n = require("../config/i18n");
 
 const userSchema = new mongoose.Schema({
     email: {

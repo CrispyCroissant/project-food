@@ -1,12 +1,16 @@
-require("dotenv").config();
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
 const MongoStore = require("connect-mongo");
+const morgan = require("morgan");
+const winston = require("./config/winston");
 const app = express();
-require("./db/db");
+require("./config/db");
 
-const i18n = require("./i18n");
+const i18n = require("./config/i18n");
 const authRouter = require("./routes/auth");
 const recipeRouter = require("./routes/recipe");
 
@@ -17,12 +21,13 @@ app.use(
         credentials: true,
     })
 );
+app.use(morgan("combined", { stream: winston.stream }));
 
 const sess = {
     cookie: {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 30, // 1 month
-        sameSite: true,
+        sameSite: "none",
     },
     name: "auth",
     saveUninitialized: false,
@@ -32,7 +37,8 @@ const sess = {
 
 if (process.env.NODE_ENV === "production") {
     sess.cookie.secure = true;
-    sess.store = MongoStore.create({ mongoUrl: process.env.DB_URl });
+    sess.store = MongoStore.create({ mongoUrl: process.env.DB_URL });
+    app.set("trust proxy", 1);
 }
 
 app.use(session(sess));

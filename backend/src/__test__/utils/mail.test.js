@@ -31,6 +31,7 @@ describe("The mail handler", () => {
     });
 
     it("should NOT throw an error if everything is OK", async () => {
+        process.env.EMAIL_HOST = "test@test.com";
         expect.assertions(0);
         try {
             await sendConfirmationMail({ email: "blahblah@mail.com", id: 1 });

@@ -12,8 +12,14 @@ async function sendConfirmationMail(credentials) {
         throw new Error("User ID is required!");
     }
 
-    if (process.env.NODE_HOST === "production") {
-        // TODO: Add proper email host.
+    if (process.env.NODE_ENV === "production") {
+        transporter = nodemailer.createTransport({
+            service: "Hotmail",
+            auth: {
+                user: process.env.EMAIL_HOST,
+                pass: process.env.EMAIL_HOST_PASS,
+            },
+        });
     } else {
         const testAccount = await nodemailer.createTestAccount();
 
@@ -30,13 +36,13 @@ async function sendConfirmationMail(credentials) {
 
     try {
         const info = await transporter.sendMail({
-            from: '"Project Food" <projectfood@test.com>',
+            from: `"Project Food" <${process.env.EMAIL_HOST}>`,
             to: email,
             subject: "Project Food | Confirm your account",
-            html: `<a href='http://localhost:3000/api/confirm/${id}'>Click here to confirm your account</>`,
+            html: `<a href='${process.env.BASE_URL}/api/confirm/${id}'>Click here to confirm your account</>`,
         });
 
-        if (process.env.NODE_HOST !== "production") {
+        if (process.env.NODE_ENV !== "production") {
             console.log(`Mail URL: ${nodemailer.getTestMessageUrl(info)}`);
         }
     } catch (error) {
