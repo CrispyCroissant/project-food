@@ -31,7 +31,7 @@ export default {
 #fakeContainer {
   height: 100%;
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("../../public/bg.jpg");
+    url("~@/assets/bg.jpg");
   background-size: cover;
 }
 </style>
