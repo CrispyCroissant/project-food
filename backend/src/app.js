@@ -38,7 +38,7 @@ const sess = {
 
 if (process.env.NODE_ENV === "production") {
     sess.cookie.secure = true;
-    sess.store = MongoStore.create({ mongoUrl: process.env.DB_URl });
+    sess.store = MongoStore.create({ mongoUrl: process.env.DB_URL });
 }
 
 app.use(session(sess));
