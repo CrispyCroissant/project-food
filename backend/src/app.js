@@ -27,7 +27,7 @@ const sess = {
     cookie: {
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24 * 30, // 1 month
-        sameSite: true,
+        sameSite: "none",
     },
     name: "auth",
     saveUninitialized: false,
@@ -36,7 +36,9 @@ const sess = {
 };
 
 if (process.env.NODE_ENV === "production") {
+    sess.cookie.secure = true;
     sess.store = MongoStore.create({ mongoUrl: process.env.DB_URL });
+    app.set("trust proxy", 1);
 }
 
 app.use(session(sess));
