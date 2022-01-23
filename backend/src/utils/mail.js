@@ -12,7 +12,7 @@ async function sendConfirmationMail(credentials) {
         throw new Error("User ID is required!");
     }
 
-    if (process.env.NODE_HOST === "production") {
+    if (process.env.NODE_ENV === "production") {
         transporter = nodemailer.createTransport({
             service: "Hotmail",
             auth: {
