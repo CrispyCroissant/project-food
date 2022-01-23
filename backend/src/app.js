@@ -1,4 +1,3 @@
-require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const session = require("express-session");
@@ -11,6 +10,10 @@ require("./config/db");
 const i18n = require("./config/i18n");
 const authRouter = require("./routes/auth");
 const recipeRouter = require("./routes/recipe");
+
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config();
+}
 
 app.use(express.json());
 app.use(
