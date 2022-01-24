@@ -1,18 +1,26 @@
 <template>
-  <div id="fakeContainer" class="d-flex flex-column">
-    <the-header class="d-flex flex-column flex-grow-0"></the-header>
-    <v-container fluid class="d-flex flex-column flex-grow-1">
-      <v-row align="end">
-        <v-col cols="12" class="d-flex justify-center">
-          <info-card></info-card>
-        </v-col>
-      </v-row>
-      <v-row align="start">
-        <v-col cols="12" class="d-flex justify-center">
-          <food-list-card></food-list-card>
-        </v-col>
-      </v-row>
-    </v-container>
+  <div id="theContainer">
+    <the-header></the-header>
+    <v-img
+      src="@/assets/bg.jpg"
+      lazy-src="@/assets/bg-lazy.jpg"
+      height="calc(100% - 64px)"
+      gradient="rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)"
+      class="d-flex align-center"
+    >
+      <v-container fluid class="d-flex flex-column flex-grow-1" id="container">
+        <v-row align="end">
+          <v-col cols="12" class="d-flex justify-center">
+            <info-card></info-card>
+          </v-col>
+        </v-row>
+        <v-row align="start">
+          <v-col cols="12" class="d-flex justify-center">
+            <food-list-card></food-list-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-img>
   </div>
 </template>
 
@@ -28,10 +36,7 @@ export default {
 </script>
 
 <style scoped>
-#fakeContainer {
-  height: 100%;
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    #fafafa url("~@/assets/bg.jpg");
-  background-size: cover;
+#theContainer {
+  height: 100vh;
 }
 </style>
