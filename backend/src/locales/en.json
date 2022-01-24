@@ -16,5 +16,9 @@
         "userNotFound": "User was not found",
         "notFound": "Recipe was not found"
     },
-    "genericError": "Something went wrong!"
+    "genericError": "Something went wrong!",
+    "mailConfirmation": {
+        "title": "Confirm your account",
+        "message": "Click on the link to confirm your account"
+    }
 }
