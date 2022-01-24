@@ -13,7 +13,11 @@
       :rules="emailRules"
       ref="emailInput"
       outlined
-    ></v-text-field>
+    >
+      <template #message="{ message }">
+        {{ $t(message) }}
+      </template>
+    </v-text-field>
     <v-text-field
       type="password"
       :label="$t('signUpPage.inputLabels.password')"
@@ -22,7 +26,11 @@
       :rules="passwordRules"
       ref="passwordInput"
       outlined
-    ></v-text-field>
+    >
+      <template #message="{ message }">
+        {{ $t(message) }}
+      </template>
+    </v-text-field>
     <v-expand-transition>
       <div class="d-flex justify-center my-5" v-if="loading">
         <v-progress-circular
@@ -64,12 +72,12 @@ export default {
       email: "",
       password: "",
       emailRules: [
-        (v) => !!v || this.$t("signUpPage.inputLabels.required"),
-        (v) => isEmail(v) || this.$t("signUpPage.inputLabels.emailValid"),
+        (v) => !!v || "signUpPage.inputLabels.required",
+        (v) => isEmail(v) || "signUpPage.inputLabels.emailValid",
       ],
       passwordRules: [
-        (v) => !!v || this.$t("signUpPage.inputLabels.required"),
-        (v) => v.length >= 8 || this.$t("signUpPage.inputLabels.passLength"),
+        (v) => !!v || "signUpPage.inputLabels.required",
+        (v) => v.length >= 8 || "signUpPage.inputLabels.passLength",
       ],
     };
   },

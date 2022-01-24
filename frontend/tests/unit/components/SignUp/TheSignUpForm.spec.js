@@ -52,26 +52,20 @@ describe("The sign up form", () => {
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
-      mocks: {
-        $t: () => "Email required",
-      },
     });
     const result = wrapper.vm.emailRules[0]("");
 
-    expect(result).toBe("Email required");
+    expect(result).not.toBe(true);
   });
 
   it("should mark the password input field as required if empty", async () => {
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
-      mocks: {
-        $t: () => "Password required",
-      },
     });
     const result = wrapper.vm.passwordRules[0]("");
 
-    expect(result).toBe("Password required");
+    expect(result).not.toBe(true);
   });
 
   it("should NOT mark an input field as required if filled", async () => {
@@ -90,13 +84,10 @@ describe("The sign up form", () => {
     wrapper = mount(TheSignUpForm, {
       localVue,
       vuetify,
-      mocks: {
-        $t: () => "Email must be valid",
-      },
     });
     const result = wrapper.vm.emailRules[1]("T");
 
-    expect(result).toBe("Email must be valid");
+    expect(result).not.toBe(true);
   });
 
   it("should NOT show error if email is valid", async () => {
