@@ -12,7 +12,15 @@
       v-model="email"
       :rules="rules.required"
       ref="emailInput"
-    ></v-text-field>
+    >
+      <!-- This allows locale updates to the rule message
+        Thanks to:
+        https://github.com/vuetifyjs/vuetify/issues/8571#issuecomment-652441704
+      -->
+      <template #message="{ message }">
+        {{ $t(message) }}
+      </template>
+    </v-text-field>
     <v-text-field
       type="password"
       :label="$t('loginPage.inputLabels.password')"
@@ -20,7 +28,11 @@
       v-model="password"
       :rules="rules.required"
       ref="passwordInput"
-    ></v-text-field>
+    >
+      <template #message="{ message }">
+        {{ $t(message) }}
+      </template>
+    </v-text-field>
     <v-expand-transition>
       <div class="d-flex justify-center my-5" v-if="loading">
         <v-progress-circular
@@ -57,7 +69,7 @@ export default {
       email: "",
       password: "",
       rules: {
-        required: [(v) => !!v || this.$t("loginPage.inputLabels.required")],
+        required: [(v) => !!v || "loginPage.inputLabels.required"],
       },
     };
   },
