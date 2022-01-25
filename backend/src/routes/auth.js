@@ -34,6 +34,7 @@ router.post("/register", async (req, res) => {
             id: user._id,
         });
     } catch (error) {
+        await user.remove();
         return res.status(500).send({ error: error.message });
     }
 

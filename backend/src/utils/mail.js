@@ -15,7 +15,9 @@ async function sendConfirmationMail(credentials) {
 
     if (process.env.NODE_ENV === "production") {
         transporter = nodemailer.createTransport({
-            service: "Hotmail",
+            host: "smtp.zoho.eu",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_HOST,
                 pass: process.env.EMAIL_HOST_PASS,
