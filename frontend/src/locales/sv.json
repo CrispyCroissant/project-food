@@ -1,5 +1,6 @@
 {
   "loginPage": {
+    "title": "Logga in",
     "confirmMessage": "Ett bekräftningsmail har skickats till dig.",
     "confirmInfo": "Du kan logga in efter att du har bekräftat ditt konto.",
     "inputLabels": {
@@ -31,7 +32,8 @@
     "foodListCard": {
       "title": "Dina recept",
       "dialogInput": "Lägg till recept",
-      "addBtn": "Lägg till"
+      "addBtn": "Lägg till",
+      "amountSuffix": "{n} recept | {n} st."
     }
   }
 }

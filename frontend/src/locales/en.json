@@ -1,5 +1,6 @@
 {
   "loginPage": {
+    "title": "Sign in",
     "confirmMessage": "A confirmation email has been sent to you.",
     "confirmInfo": "You can login after you've confirmed your account.",
     "inputLabels": {
@@ -31,7 +32,8 @@
     "foodListCard": {
       "title": "Your recipes",
       "dialogInput": "Add food",
-      "addBtn": "Add"
+      "addBtn": "Add",
+      "amountSuffix": "{n} recipe | {n} recipes"
     }
   }
 }

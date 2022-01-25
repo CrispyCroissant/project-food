@@ -16,5 +16,9 @@
         "userNotFound": "Användaren hittades inte",
         "notFound": "Receptet hittades inte"
     },
-    "genericError": "Något har gått fel!"
+    "genericError": "Något har gått fel!",
+    "mailConfirmation": {
+        "title": "Bekräfta ditt konto",
+        "message": "Klicka på länken att bekräfta ditt konto"
+    }
 }

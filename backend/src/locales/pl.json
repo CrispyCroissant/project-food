@@ -16,5 +16,9 @@
         "userNotFound": "Nie znaleziono użytkownika",
         "notFound": "Nie znaleziono przepisu"
     },
-    "genericError": "Coś poszło nie tak!"
+    "genericError": "Coś poszło nie tak!",
+    "mailConfirmation": {
+        "title": "Potwierdź swoje konto",
+        "message": "Kliknij link, aby potwierdzić swoje konto"
+    }
 }

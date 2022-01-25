@@ -1,4 +1,5 @@
 const nodemailer = require("nodemailer");
+const i18n = require("../config/i18n");
 
 async function sendConfirmationMail(credentials) {
     const { email, id } = credentials;
@@ -14,7 +15,9 @@ async function sendConfirmationMail(credentials) {
 
     if (process.env.NODE_ENV === "production") {
         transporter = nodemailer.createTransport({
-            service: "Hotmail",
+            host: "smtp.zoho.eu",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.EMAIL_HOST,
                 pass: process.env.EMAIL_HOST_PASS,
@@ -38,8 +41,10 @@ async function sendConfirmationMail(credentials) {
         const info = await transporter.sendMail({
             from: `"Project Food" <${process.env.EMAIL_HOST}>`,
             to: email,
-            subject: "Project Food | Confirm your account",
-            html: `<a href='${process.env.BASE_URL}/api/confirm/${id}'>Click here to confirm your account</>`,
+            subject: `Project Food | ${i18n.__("mailConfirmation.title")}`,
+            html: `<a href='${
+                process.env.BASE_URL
+            }/api/confirm/${id}'>${i18n.__("mailConfirmation.message")}</>`,
         });
 
         if (process.env.NODE_ENV !== "production") {

@@ -51,15 +51,12 @@ describe("The login form", () => {
       localVue,
       vuetify,
       mocks: {
-        $t() {
-          return "Required";
-        },
         $i18n: { locale: "" },
       },
     });
     const result = wrapper.vm.rules.required[0]("");
 
-    expect(result).toBe("Required");
+    expect(result).not.toBe(true);
   });
 
   it("should NOT mark an input field as required if filled", async () => {
