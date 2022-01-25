@@ -10,6 +10,17 @@
     <v-card-title class="px-15">
       {{ $t("dashboard.foodListCard.title") }}
     </v-card-title>
+    <v-card-subtitle
+      v-if="recipeAmount"
+      class="d-flex justify-center"
+      ref="counter"
+    >
+      {{
+        $tc("dashboard.foodListCard.amountSuffix", recipeAmount, {
+          n: recipeAmount,
+        })
+      }}
+    </v-card-subtitle>
     <v-card-text>
       <v-list
         dense
@@ -62,6 +73,12 @@ export default {
       set() {
         return;
       },
+    },
+    recipeAmount() {
+      if (this.recipes.length > 0) {
+        return this.recipes.length;
+      }
+      return 0;
     },
   },
   watch: {

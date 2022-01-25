@@ -32,7 +32,8 @@
     "foodListCard": {
       "title": "Your recipes",
       "dialogInput": "Add food",
-      "addBtn": "Add"
+      "addBtn": "Add",
+      "amountSuffix": "{n} recipe | {n} recipes"
     }
   }
 }
