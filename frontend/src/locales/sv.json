@@ -32,7 +32,8 @@
     "foodListCard": {
       "title": "Dina recept",
       "dialogInput": "Lägg till recept",
-      "addBtn": "Lägg till"
+      "addBtn": "Lägg till",
+      "amountSuffix": "{n} recept | {n} st."
     }
   }
 }
