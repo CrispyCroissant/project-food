@@ -124,4 +124,41 @@ describe("The card", () => {
 
     expect(actions.deleteRecipe).toBeCalledTimes(1);
   });
+
+  it("should have a counter text", async () => {
+    store.state.recipes = [1];
+
+    wrapper = mount(FoodListCard, { localVue, vuetify, store });
+
+    const counter = wrapper.findComponent({ ref: "counter" });
+
+    expect(counter.exists()).toBe(true);
+  });
+
+  test("the counter should not exist if there's no recipes", async () => {
+    wrapper = mount(FoodListCard, {
+      localVue,
+      vuetify,
+      store,
+    });
+
+    const counter = wrapper.findComponent({ ref: "counter" });
+
+    expect(counter.exists()).toBe(false);
+  });
+
+  test("the counter text should show the amount of recipes", async () => {
+    store.state.recipes = ["h", "e", "y"];
+
+    wrapper = mount(FoodListCard, {
+      localVue,
+      vuetify,
+      store,
+    });
+
+    // Can't test the actual counter text due to $tc being mocked away.
+    const amount = wrapper.vm.recipeAmount;
+
+    expect(amount).toBe(3);
+  });
 });
