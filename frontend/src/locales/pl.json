@@ -1,40 +1,39 @@
 {
-    "loginPage": {
-      "title": "Zaloguj się",
-      "confirmMessage": "E-mail z potwierdzeniem został wysłany do ciebie.",
-      "confirmInfo": "Możesz zalogować się po potwierdzeniu swojego konta.",
-      "inputLabels": {
-        "email": "E-mail",
-        "password": "Hasło",
-        "required": "Obowiązkowe"
-      },
-      "register": "Zarejestruj się",
-      "signIn": "Zaloguj się"
+  "loginPage": {
+    "title": "Zaloguj się",
+    "confirmMessage": "E-mail z potwierdzeniem został wysłany do ciebie.",
+    "confirmInfo": "Możesz zalogować się po potwierdzeniu swojego konta.",
+    "inputLabels": {
+      "email": "E-mail",
+      "password": "Hasło",
+      "required": "Obowiązkowe"
     },
-    "signUpPage": {
-      "title": "Utwórz konto",
-      "inputLabels": {
-        "email": "E-mail",
-        "password": "Hasło",
-        "required": "Obowiązkowe",
-        "emailValid": "E-mail musi być poprawny",
-        "passLength": "Hasło musi zawierać co najmniej 8 znaków"
-      },
-      "signUp": "Zarejestruj się",
-      "signIn": "Zaloguj się"
+    "register": "Zarejestruj się",
+    "signIn": "Zaloguj się"
+  },
+  "signUpPage": {
+    "title": "Utwórz konto",
+    "inputLabels": {
+      "email": "E-mail",
+      "password": "Hasło",
+      "required": "Obowiązkowe",
+      "emailValid": "E-mail musi być poprawny",
+      "passLength": "Hasło musi zawierać co najmniej 8 znaków"
     },
-    "dashboard": {
-      "infoCard": {
-        "titleHasRecipe": "Twój następny przepis to",
-        "titleNoRecipe": "Nie masz jeszcze przepisów!",
-        "generateBtn": "Kolejny przepis"
-      },
-      "foodListCard": {
-        "title": "Twoje przepisy",
-        "dialogInput": "Dodaj przepis",
-        "addBtn": "Dodaj",
-        "amountSuffix": "{n} przepis | {n} szt."
-      }
+    "signUp": "Zarejestruj się",
+    "signIn": "Zaloguj się"
+  },
+  "dashboard": {
+    "infoCard": {
+      "titleHasRecipe": "Twój następny przepis to",
+      "titleNoRecipe": "Nie masz jeszcze przepisów!",
+      "generateBtn": "Kolejny przepis"
+    },
+    "foodListCard": {
+      "title": "Twoje przepisy",
+      "dialogInput": "Dodaj przepis",
+      "addBtn": "Dodaj",
+      "amountSuffix": "{n} przepis | {n} szt."
     }
   }
-  
+}
