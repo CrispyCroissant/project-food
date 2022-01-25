@@ -1,5 +1,6 @@
 {
   "loginPage": {
+    "title": "Logga in",
     "confirmMessage": "Ett bekräftningsmail har skickats till dig.",
     "confirmInfo": "Du kan logga in efter att du har bekräftat ditt konto.",
     "inputLabels": {

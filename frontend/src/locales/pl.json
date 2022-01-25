@@ -1,5 +1,6 @@
 {
     "loginPage": {
+      "title": "Zaloguj się",
       "confirmMessage": "E-mail z potwierdzeniem został wysłany do ciebie.",
       "confirmInfo": "Możesz zalogować się po potwierdzeniu swojego konta.",
       "inputLabels": {
