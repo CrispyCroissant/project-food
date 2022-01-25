@@ -14,6 +14,7 @@
           {{ $t("loginPage.confirmInfo") }}
         </v-alert>
         <h1 class="text-h2 text-md-h1 text-center mb-15">Project Food</h1>
+        <h3 class="text-h5 mb-6">{{ $t("loginPage.title") }}</h3>
         <the-login-form></the-login-form>
       </v-col>
     </v-row>
