@@ -6,7 +6,7 @@ const sendConfirmationMail = require("../utils/mail");
 const sessionAuth = require("../middleware/sessionAuth");
 
 router.post("/register", async (req, res) => {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
 
     if (!email) {
         return res.status(400).send({ error: i18n.__("auth.emailRequired") });
@@ -16,6 +16,7 @@ router.post("/register", async (req, res) => {
         return res.status(400).send({ error: i18n.__("auth.passRequired") });
     }
 
+    email = email.toLowerCase();
     const user = new User({
         email,
         password: await User.hashPassword(password),
@@ -42,7 +43,7 @@ router.post("/register", async (req, res) => {
 });
 
 router.post("/login", async (req, res) => {
-    const { email, password } = req.body;
+    let { email, password } = req.body;
     const { session } = req;
 
     if (!email) {
@@ -54,6 +55,7 @@ router.post("/login", async (req, res) => {
     }
 
     try {
+        email = email.toLowerCase();
         const user = await User.findOne({ email });
 
         if (user) {

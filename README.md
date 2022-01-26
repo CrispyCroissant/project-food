@@ -72,6 +72,12 @@ The web app is separated into a frontend and backend. Consequently, there's two 
 [@CrispyCroissant](https://github.com/CrispyCroissant)
 
 ## Version History
+* 0.2.1
+  * Removed email case-sensitivity.
+* 0.2.0
+  * Improved UX.
+  * Bug fixes.
+  * See [#25](https://github.com/CrispyCroissant/project-food/pull/25) for more details.
 * 0.1.0
   * Initial release. 
 
